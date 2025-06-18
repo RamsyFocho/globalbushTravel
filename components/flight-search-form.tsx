@@ -232,7 +232,7 @@ export function FlightSearchForm({ onSearch, initialValues, className = "" }: Fl
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Passengers */}
         <div>
-          <Label className="text-gray-900 dark:text-gray-100 mb-2 block">Passengers</Label>
+          {/* <Label className="text-gray-900 dark:text-gray-100 mb-2 block">Passengers</Label> */}
           <PassengerSelector value={passengers} onChange={setPassengers} />
         </div>
 

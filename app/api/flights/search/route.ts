@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       destination,
       departureDate,
       returnDate,
-      passengers: Number.parseInt(passengers),
+      passengers: typeof passengers === 'string' ? Number.parseInt(passengers) : passengers,
       cabinClass,
     })
 

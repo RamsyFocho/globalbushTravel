@@ -61,10 +61,14 @@ export interface LocationSuggestion {
 }
 
 class FlightService {
-  private baseUrl = "https://api.duffel.com"
-  private apiKey = process.env.DUFFEL_API_KEY || "***REMOVED***"
+  private baseUrl = process.env.DUFFEL_API_URL || "https://api.duffel.com"
+  private apiKey = process.env.DUFFEL_API_KEY
 
   private getHeaders() {
+    if (!this.apiKey) {
+      throw new Error("DUFFEL_API_KEY environment variable is not set")
+    }
+
     return {
       Authorization: `Bearer ${this.apiKey}`,
       "Content-Type": "application/json",
@@ -92,7 +96,6 @@ class FlightService {
       return this.getMockLocations(query);
     }
   }
-  
 
   // Server-side method for direct Duffel API calls
   async searchLocationsDirect(query: string): Promise<LocationSuggestion[]> {
@@ -305,226 +308,6 @@ class FlightService {
         country_code: "FR",
         display_name: "Paris (CDG) - Charles de Gaulle Airport, France",
       },
-      {
-        id: "9",
-        type: "airport",
-        iata_code: "ORY",
-        name: "Orly Airport",
-        city_name: "Paris",
-        country_name: "France",
-        country_code: "FR",
-        display_name: "Paris (ORY) - Orly Airport, France",
-      },
-      {
-        id: "10",
-        type: "airport",
-        iata_code: "IST",
-        name: "Istanbul Airport",
-        city_name: "Istanbul",
-        country_name: "Turkey",
-        country_code: "TR",
-        display_name: "Istanbul (IST) - Istanbul Airport, Turkey",
-      },
-      {
-        id: "11",
-        type: "airport",
-        iata_code: "SAW",
-        name: "Sabiha Gökçen International Airport",
-        city_name: "Istanbul",
-        country_name: "Turkey",
-        country_code: "TR",
-        display_name: "Istanbul (SAW) - Sabiha Gökçen International Airport, Turkey",
-      },
-      {
-        id: "12",
-        type: "airport",
-        iata_code: "NRT",
-        name: "Narita International Airport",
-        city_name: "Tokyo",
-        country_name: "Japan",
-        country_code: "JP",
-        display_name: "Tokyo (NRT) - Narita International Airport, Japan",
-      },
-      {
-        id: "13",
-        type: "airport",
-        iata_code: "HND",
-        name: "Haneda Airport",
-        city_name: "Tokyo",
-        country_name: "Japan",
-        country_code: "JP",
-        display_name: "Tokyo (HND) - Haneda Airport, Japan",
-      },
-      {
-        id: "14",
-        type: "airport",
-        iata_code: "SYD",
-        name: "Kingsford Smith Airport",
-        city_name: "Sydney",
-        country_name: "Australia",
-        country_code: "AU",
-        display_name: "Sydney (SYD) - Kingsford Smith Airport, Australia",
-      },
-      {
-        id: "15",
-        type: "airport",
-        iata_code: "MEL",
-        name: "Melbourne Airport",
-        city_name: "Melbourne",
-        country_name: "Australia",
-        country_code: "AU",
-        display_name: "Melbourne (MEL) - Melbourne Airport, Australia",
-      },
-      {
-        id: "16",
-        type: "airport",
-        iata_code: "CAI",
-        name: "Cairo International Airport",
-        city_name: "Cairo",
-        country_name: "Egypt",
-        country_code: "EG",
-        display_name: "Cairo (CAI) - Cairo International Airport, Egypt",
-      },
-      {
-        id: "17",
-        type: "airport",
-        iata_code: "CPT",
-        name: "Cape Town International Airport",
-        city_name: "Cape Town",
-        country_name: "South Africa",
-        country_code: "ZA",
-        display_name: "Cape Town (CPT) - Cape Town International Airport, South Africa",
-      },
-      {
-        id: "18",
-        type: "airport",
-        iata_code: "JNB",
-        name: "O.R. Tambo International Airport",
-        city_name: "Johannesburg",
-        country_name: "South Africa",
-        country_code: "ZA",
-        display_name: "Johannesburg (JNB) - O.R. Tambo International Airport, South Africa",
-      },
-      {
-        id: "19",
-        type: "airport",
-        iata_code: "FCO",
-        name: "Leonardo da Vinci International Airport",
-        city_name: "Rome",
-        country_name: "Italy",
-        country_code: "IT",
-        display_name: "Rome (FCO) - Leonardo da Vinci International Airport, Italy",
-      },
-      {
-        id: "20",
-        type: "airport",
-        iata_code: "FRA",
-        name: "Frankfurt Airport",
-        city_name: "Frankfurt",
-        country_name: "Germany",
-        country_code: "DE",
-        display_name: "Frankfurt (FRA) - Frankfurt Airport, Germany",
-      },
-      {
-        id: "21",
-        type: "airport",
-        iata_code: "AMS",
-        name: "Amsterdam Airport Schiphol",
-        city_name: "Amsterdam",
-        country_name: "Netherlands",
-        country_code: "NL",
-        display_name: "Amsterdam (AMS) - Amsterdam Airport Schiphol, Netherlands",
-      },
-      {
-        id: "22",
-        type: "airport",
-        iata_code: "MAD",
-        name: "Adolfo Suárez Madrid–Barajas Airport",
-        city_name: "Madrid",
-        country_name: "Spain",
-        country_code: "ES",
-        display_name: "Madrid (MAD) - Adolfo Suárez Madrid–Barajas Airport, Spain",
-      },
-      {
-        id: "23",
-        type: "airport",
-        iata_code: "BCN",
-        name: "Barcelona–El Prat Airport",
-        city_name: "Barcelona",
-        country_name: "Spain",
-        country_code: "ES",
-        display_name: "Barcelona (BCN) - Barcelona–El Prat Airport, Spain",
-      },
-      {
-        id: "24",
-        type: "airport",
-        iata_code: "ZUR",
-        name: "Zurich Airport",
-        city_name: "Zurich",
-        country_name: "Switzerland",
-        country_code: "CH",
-        display_name: "Zurich (ZUR) - Zurich Airport, Switzerland",
-      },
-      {
-        id: "25",
-        type: "airport",
-        iata_code: "VIE",
-        name: "Vienna International Airport",
-        city_name: "Vienna",
-        country_name: "Austria",
-        country_code: "AT",
-        display_name: "Vienna (VIE) - Vienna International Airport, Austria",
-      },
-      {
-        id: "26",
-        type: "airport",
-        iata_code: "MUC",
-        name: "Munich Airport",
-        city_name: "Munich",
-        country_name: "Germany",
-        country_code: "DE",
-        display_name: "Munich (MUC) - Munich Airport, Germany",
-      },
-      {
-        id: "27",
-        type: "airport",
-        iata_code: "BRU",
-        name: "Brussels Airport",
-        city_name: "Brussels",
-        country_name: "Belgium",
-        country_code: "BE",
-        display_name: "Brussels (BRU) - Brussels Airport, Belgium",
-      },
-      {
-        id: "28",
-        type: "airport",
-        iata_code: "ARN",
-        name: "Stockholm Arlanda Airport",
-        city_name: "Stockholm",
-        country_name: "Sweden",
-        country_code: "SE",
-        display_name: "Stockholm (ARN) - Stockholm Arlanda Airport, Sweden",
-      },
-      {
-        id: "29",
-        type: "airport",
-        iata_code: "CPH",
-        name: "Copenhagen Airport",
-        city_name: "Copenhagen",
-        country_name: "Denmark",
-        country_code: "DK",
-        display_name: "Copenhagen (CPH) - Copenhagen Airport, Denmark",
-      },
-      {
-        id: "30",
-        type: "airport",
-        iata_code: "OSL",
-        name: "Oslo Airport",
-        city_name: "Oslo",
-        country_name: "Norway",
-        country_code: "NO",
-        display_name: "Oslo (OSL) - Oslo Airport, Norway",
-      },
     ]
 
     const lowerQuery = query.toLowerCase()
@@ -566,33 +349,133 @@ class FlightService {
   // Server-side method for direct Duffel API calls
   async searchFlightsDirect(params: FlightSearchParams): Promise<FlightOffer[]> {
     try {
-      // For now, return mock data as Duffel flight search is complex
-      // and requires proper offer request handling
-      console.log("Using mock flight data for search:", params)
-      
-      const allFlights = this.getMockFlights()
-      
-      // Filter flights based on cabin class if specified
-      if (params.cabinClass && params.cabinClass !== "economy") {
-        const cabinClassMap: Record<string, string> = {
-          "premium_economy": "Premium Economy",
-          "business": "Business",
-          "first": "First Class"
-        }
-        
-        const requestedClass = cabinClassMap[params.cabinClass]
-        if (requestedClass) {
-          const filteredFlights = allFlights.filter(flight => flight.class === requestedClass)
-          return filteredFlights.length > 0 ? filteredFlights : allFlights.filter(flight => flight.class === "Economy")
-        }
+      console.log("Searching flights with Duffel API:", params)
+
+      // Check if API key is available
+      if (!this.apiKey) {
+        console.error("DUFFEL_API_KEY environment variable is not set")
+        throw new Error("DUFFEL_API_KEY environment variable is not set")
       }
-      
-      // Return economy flights by default
-      return allFlights.filter(flight => flight.class === "Economy")
+
+      // Prepare the offer request payload
+      const offerRequestPayload = {
+        data: {
+          slices: [
+            {
+              origin: params.origin,
+              destination: params.destination,
+              departure_date: params.departureDate,
+            },
+          ],
+          passengers: Array.from({ length: params.passengers }, () => ({ type: "adult" })),
+          cabin_class: params.cabinClass || "economy",
+        },
+      }
+
+      // Add return slice if return date is provided
+      if (params.returnDate) {
+        offerRequestPayload.data.slices.push({
+          origin: params.destination,
+          destination: params.origin,
+          departure_date: params.returnDate,
+        })
+      }
+
+      console.log("Duffel offer request payload:", JSON.stringify(offerRequestPayload, null, 2))
+      console.log("Duffel API URL:", `${this.baseUrl}/air/offer_requests`)
+      console.log("Duffel API Key (first 10 chars):", this.apiKey.substring(0, 10) + "...")
+
+      // Make the offer request
+      const offerResponse = await fetch(`${this.baseUrl}/air/offer_requests`, {
+        method: "POST",
+        headers: this.getHeaders(),
+        body: JSON.stringify(offerRequestPayload),
+      })
+
+      console.log("Duffel offer request response status:", offerResponse.status)
+      console.log("Duffel offer request response headers:", Object.fromEntries(offerResponse.headers.entries()))
+
+      if (!offerResponse.ok) {
+        const errorText = await offerResponse.text()
+        console.error(`Duffel offer request error (${offerResponse.status}):`, errorText)
+        throw new Error(`HTTP ${offerResponse.status}: ${offerResponse.statusText} - ${errorText}`)
+      }
+
+      const offerData = await offerResponse.json()
+      console.log("Duffel offer request response:", JSON.stringify(offerData, null, 2))
+
+      // Get the offer request ID
+      const offerRequestId = offerData.data.id
+      console.log("Offer request ID:", offerRequestId)
+
+      // Poll for offers
+      const offers = await this.pollForOffers(offerRequestId)
+      console.log("Polling completed, offers found:", offers.length)
+
+      if (offers.length > 0) {
+        console.log("Returning real Duffel API results")
+        return offers
+      }
+
+      // If no offers from API, return mock data
+      console.log("No offers from Duffel API, using mock data")
+      return this.getMockFlights()
     } catch (error) {
       console.error("Duffel flight search error:", error)
-      return this.getMockFlights().filter(flight => flight.class === "Economy")
+      console.error("Error details:", {
+        message: error instanceof Error ? error.message : "Unknown error",
+        stack: error instanceof Error ? error.stack : undefined,
+        apiKey: this.apiKey ? "Present" : "Missing",
+        baseUrl: this.baseUrl
+      })
+      return this.getMockFlights()
     }
+  }
+
+  private async pollForOffers(offerRequestId: string): Promise<FlightOffer[]> {
+    const maxAttempts = 10
+    const pollInterval = 2000 // 2 seconds
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        console.log(`Polling for offers, attempt ${attempt + 1}/${maxAttempts}`)
+
+        const offersResponse = await fetch(`${this.baseUrl}/air/offers?offer_request_id=${offerRequestId}`, {
+          headers: this.getHeaders(),
+        })
+
+        console.log(`Poll attempt ${attempt + 1} response status:`, offersResponse.status)
+
+        if (!offersResponse.ok) {
+          const errorText = await offersResponse.text()
+          console.error(`Duffel offers error (${offersResponse.status}):`, errorText)
+          throw new Error(`HTTP ${offersResponse.status}: ${offersResponse.statusText}`)
+        }
+
+        const offersData = await offersResponse.json()
+        console.log(`Poll attempt ${attempt + 1} offers count:`, offersData.data?.length || 0)
+
+        if (offersData.data && offersData.data.length > 0) {
+          console.log(`Found ${offersData.data.length} offers from Duffel API`)
+          const transformedOffers = this.transformDuffelResponse(offersData)
+          console.log(`Transformed ${transformedOffers.length} offers`)
+          return transformedOffers
+        }
+
+        console.log(`No offers yet, waiting ${pollInterval}ms before next attempt...`)
+        // Wait before next poll
+        await new Promise(resolve => setTimeout(resolve, pollInterval))
+      } catch (error) {
+        console.error(`Error polling for offers (attempt ${attempt + 1}):`, error)
+        if (attempt === maxAttempts - 1) {
+          throw error
+        }
+        await new Promise(resolve => setTimeout(resolve, pollInterval))
+      }
+    }
+
+    console.log("No offers found after maximum polling attempts")
+    return []
   }
 
   private getMockFlights(): FlightOffer[] {
@@ -850,42 +733,72 @@ class FlightService {
   }
 
   private transformDuffelResponse(data: any): FlightOffer[] {
-    return (
-      data.data?.map((offer: any) => ({
-        id: offer.id,
-        airline: offer.slices[0]?.segments[0]?.marketing_carrier?.name || "Unknown",
-        flightNumber: offer.slices[0]?.segments[0]?.marketing_carrier_flight_number || "",
-        departure: {
-          time: new Date(offer.slices[0]?.segments[0]?.departing_at).toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-          }),
-          airport: offer.slices[0]?.segments[0]?.origin?.iata_code || "",
-          city: offer.slices[0]?.segments[0]?.origin?.city_name || "",
-          date: offer.slices[0]?.segments[0]?.departing_at?.split("T")[0] || "",
-        },
-        arrival: {
-          time: new Date(
-            offer.slices[0]?.segments[offer.slices[0].segments.length - 1]?.arriving_at,
-          ).toLocaleTimeString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-          }),
-          airport: offer.slices[0]?.segments[offer.slices[0].segments.length - 1]?.destination?.iata_code || "",
-          city: offer.slices[0]?.segments[offer.slices[0].segments.length - 1]?.destination?.city_name || "",
-          date: offer.slices[0]?.segments[offer.slices[0].segments.length - 1]?.arriving_at?.split("T")[0] || "",
-        },
-        duration: offer.slices[0]?.duration || "",
-        stops: offer.slices[0]?.segments?.length - 1 || 0,
-        price: Number.parseFloat(offer.total_amount) || 0,
-        currency: offer.total_currency || "USD",
-        amenities: ["wifi", "meals", "entertainment"], // Default amenities
-        baggage: "23kg included", // Default baggage
-        class: "Economy", // Default class
-      })) || []
-    )
+    try {
+      console.log("Transforming Duffel response:", {
+        hasData: !!data.data,
+        dataLength: data.data?.length || 0
+      })
+
+      if (!data.data || !Array.isArray(data.data)) {
+        console.error("Invalid data structure in Duffel response")
+        return []
+      }
+
+      const transformed = data.data.map((offer: any, index: number) => {
+        try {
+          const firstSlice = offer.slices?.[0]
+          const firstSegment = firstSlice?.segments?.[0]
+          const lastSegment = firstSlice?.segments?.[firstSlice.segments.length - 1]
+
+          if (!firstSlice || !firstSegment) {
+            console.error(`Offer ${index + 1} missing slice or segment data`)
+            return null
+          }
+
+          return {
+            id: offer.id,
+            airline: firstSegment.marketing_carrier?.name || "Unknown",
+            flightNumber: firstSegment.marketing_carrier_flight_number || "",
+            departure: {
+              time: new Date(firstSegment.departing_at).toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              }),
+              airport: firstSegment.origin?.iata_code || "",
+              city: firstSegment.origin?.city_name || "",
+              date: firstSegment.departing_at?.split("T")[0] || "",
+            },
+            arrival: {
+              time: new Date(lastSegment.arriving_at).toLocaleTimeString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false,
+              }),
+              airport: lastSegment.destination?.iata_code || "",
+              city: lastSegment.destination?.city_name || "",
+              date: lastSegment.arriving_at?.split("T")[0] || "",
+            },
+            duration: firstSlice.duration || "",
+            stops: firstSlice.segments?.length - 1 || 0,
+            price: Number.parseFloat(offer.total_amount) || 0,
+            currency: offer.total_currency || "USD",
+            amenities: ["wifi", "meals", "entertainment"],
+            baggage: "23kg included",
+            class: "Economy",
+          }
+        } catch (error) {
+          console.error(`Error transforming offer ${index + 1}:`, error)
+          return null
+        }
+      }).filter(Boolean)
+
+      console.log(`Successfully transformed ${transformed.length} offers`)
+      return transformed
+    } catch (error) {
+      console.error("Error in transformDuffelResponse:", error)
+      return []
+    }
   }
 
   async getFlightDetails(offerId: string): Promise<FlightOffer | null> {

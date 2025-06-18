@@ -4,6 +4,8 @@ interface StructuredDataProps {
   data: any
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com"
+
 export function StructuredData({ data }: StructuredDataProps) {
   return (
     <Script
@@ -17,10 +19,10 @@ export function StructuredData({ data }: StructuredDataProps) {
 export const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "TravelAgency",
-  name: "Global Bush Travel",
-  description: "Your trusted travel partner for flights, hotels, packages, and more.",
-  url: "https://globalbushtravel.com",
-  logo: "https://globalbushtravel.com/logo.png",
+  name: "GlobalBushTravel",
+  description: "Your trusted partner for global travel solutions including flights, hotels, and vacation packages.",
+  url: baseUrl,
+  logo: `${baseUrl}/logo.png`,
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+234-800-123-4567",

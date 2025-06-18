@@ -2,7 +2,14 @@ import { NextResponse } from "next/server"
 
 export async function GET() {
   try {
-    const apiKey = process.env.DUFFEL_API_KEY || "***REMOVED***"
+    const apiKey = process.env.DUFFEL_API_KEY
+
+    if (!apiKey) {
+      return NextResponse.json({
+        success: false,
+        error: "DUFFEL_API_KEY environment variable is not set",
+      }, { status: 500 })
+    }
 
     // Test the places/suggestions endpoint
     const suggestionsResponse = await fetch("https://api.duffel.com/places/suggestions?query=dou", {
