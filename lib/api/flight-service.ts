@@ -393,7 +393,7 @@ class FlightService {
 
       console.log("Duffel offer request payload:", JSON.stringify(offerRequestPayload, null, 2))
       console.log("Duffel API URL:", `${this.baseUrl}/air/offer_requests`)
-      console.log("Duffel API Key (first 10 chars):", this.apiKey.substring(0, 10) + "...")
+      console.log("Duffel API Key: [REDACTED]")
 
       // Make the offer request
       const offerResponse = await fetch(`${this.baseUrl}/air/offer_requests`, {
@@ -495,13 +495,13 @@ class FlightService {
         airline: "Emirates",
         flightNumber: "EK 783",
         departure: {
-          time: "14:30",
+          time: "14:30 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "06:45+1",
+          time: "06:45 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -520,13 +520,13 @@ class FlightService {
         airline: "British Airways",
         flightNumber: "BA 075",
         departure: {
-          time: "21:40",
+          time: "21:40 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "06:20+1",
+          time: "06:20 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -544,13 +544,13 @@ class FlightService {
         airline: "Turkish Airlines",
         flightNumber: "TK 624",
         departure: {
-          time: "23:55",
+          time: "23:55 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "12:30+1",
+          time: "12:30 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -569,13 +569,13 @@ class FlightService {
         airline: "Lufthansa",
         flightNumber: "LH 568",
         departure: {
-          time: "16:15",
+          time: "16:15 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "08:45+1",
+          time: "08:45 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -594,13 +594,13 @@ class FlightService {
         airline: "Air France",
         flightNumber: "AF 718",
         departure: {
-          time: "11:20",
+          time: "11:20 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "19:55",
+          time: "19:55 Sun",
           airport: "LHR",
           city: "London",
           date: "2024-12-15",
@@ -619,13 +619,13 @@ class FlightService {
         airline: "Emirates",
         flightNumber: "EK 783",
         departure: {
-          time: "14:30",
+          time: "14:30 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "06:45+1",
+          time: "06:45 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -644,13 +644,13 @@ class FlightService {
         airline: "British Airways",
         flightNumber: "BA 075",
         departure: {
-          time: "21:40",
+          time: "21:40 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "06:20+1",
+          time: "06:20 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -669,13 +669,13 @@ class FlightService {
         airline: "Emirates",
         flightNumber: "EK 783",
         departure: {
-          time: "14:30",
+          time: "14:30 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "06:45+1",
+          time: "06:45 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -694,13 +694,13 @@ class FlightService {
         airline: "British Airways",
         flightNumber: "BA 075",
         departure: {
-          time: "21:40",
+          time: "21:40 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "06:20+1",
+          time: "06:20 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -719,13 +719,13 @@ class FlightService {
         airline: "Emirates",
         flightNumber: "EK 783",
         departure: {
-          time: "14:30",
+          time: "14:30 Sun",
           airport: "LOS",
           city: "Lagos",
           date: "2024-12-15",
         },
         arrival: {
-          time: "06:45+1",
+          time: "06:45 Mon",
           airport: "LHR",
           city: "London",
           date: "2024-12-16",
@@ -740,6 +740,26 @@ class FlightService {
         class: "First Class",
       },
     ]
+  }
+
+  private formatTimeWithDay(dateTimeString: string): string {
+    try {
+      const date = new Date(dateTimeString)
+      const formattedDate = `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+      const time = date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+      })
+      
+      // Get day of week
+      const day = date.toLocaleDateString("en-US", { weekday: "short" })
+      
+      return `${time} ${day} ${formattedDate}`
+    } catch (error) {
+      console.error("Error formatting time with day:", error)
+      return dateTimeString
+    }
   }
 
   private transformDuffelResponse(data: any): FlightOffer[] {
@@ -770,21 +790,13 @@ class FlightService {
             airline: firstSegment.marketing_carrier?.name || "Unknown",
             flightNumber: firstSegment.marketing_carrier_flight_number || "",
             departure: {
-              time: new Date(firstSegment.departing_at).toLocaleTimeString("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false,
-              }),
+              time: this.formatTimeWithDay(firstSegment.departing_at),
               airport: firstSegment.origin?.iata_code || "",
               city: firstSegment.origin?.city_name || "",
               date: firstSegment.departing_at?.split("T")[0] || "",
             },
             arrival: {
-              time: new Date(lastSegment.arriving_at).toLocaleTimeString("en-US", {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false,
-              }),
+              time: this.formatTimeWithDay(lastSegment.arriving_at),
               airport: lastSegment.destination?.iata_code || "",
               city: lastSegment.destination?.city_name || "",
               date: lastSegment.arriving_at?.split("T")[0] || "",
@@ -895,31 +907,37 @@ class FlightService {
   private getMockUpcomingFlights(userLocation: string): FlightOffer[] {
     const destinations = ["LAX", "JFK", "LHR", "CDG", "DXB", "SIN", "HKG", "NRT", "SYD", "YYZ", "DLA", "LOS", "ABV"]
     const airlines = ["Emirates", "British Airways", "Lufthansa", "Air France", "Delta", "American Airlines", "Camair-Co", "Air Côte d'Ivoire"]
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     
-    return destinations.map((destination, index) => ({
-      id: `upcoming_${index + 1}`,
-      airline: airlines[index % airlines.length],
-      flightNumber: `${airlines[index % airlines.length].substring(0, 2).toUpperCase()} ${Math.floor(Math.random() * 9999) + 1000}`,
-      departure: {
-        time: `${Math.floor(Math.random() * 12) + 6}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
-        airport: userLocation,
-        city: this.getCityName(userLocation),
-        date: new Date(Date.now() + (index + 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      },
-      arrival: {
-        time: `${Math.floor(Math.random() * 12) + 12}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
-        airport: destination,
-        city: this.getCityName(destination),
-        date: new Date(Date.now() + (index + 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-      },
-      duration: `${Math.floor(Math.random() * 8) + 4}h ${Math.floor(Math.random() * 60)}m`,
-      stops: Math.floor(Math.random() * 2),
-      price: Math.floor(Math.random() * 800) + 200,
-      currency: "USD",
-      amenities: ["wifi", "meals", "entertainment"],
-      baggage: "23kg included",
-      class: "Economy",
-    }))
+    return destinations.map((destination, index) => {
+      const departureDay = days[index % days.length]
+      const arrivalDay = days[(index + 1) % days.length]
+      
+      return {
+        id: `upcoming_${index + 1}`,
+        airline: airlines[index % airlines.length],
+        flightNumber: `${airlines[index % airlines.length].substring(0, 2).toUpperCase()} ${Math.floor(Math.random() * 9999) + 1000}`,
+        departure: {
+          time: `${Math.floor(Math.random() * 12) + 6}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${departureDay}`,
+          airport: userLocation,
+          city: this.getCityName(userLocation),
+          date: new Date(Date.now() + (index + 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        },
+        arrival: {
+          time: `${Math.floor(Math.random() * 12) + 12}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')} ${arrivalDay}`,
+          airport: destination,
+          city: this.getCityName(destination),
+          date: new Date(Date.now() + (index + 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        },
+        duration: `${Math.floor(Math.random() * 8) + 4}h ${Math.floor(Math.random() * 60)}m`,
+        stops: Math.floor(Math.random() * 2),
+        price: Math.floor(Math.random() * 800) + 200,
+        currency: "USD",
+        amenities: ["wifi", "meals", "entertainment"],
+        baggage: "23kg included",
+        class: "Economy",
+      }
+    })
   }
 
   private getCityName(iataCode: string): string {

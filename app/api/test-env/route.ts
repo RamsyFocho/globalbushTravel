@@ -5,7 +5,7 @@ export async function GET() {
   const duffelApiUrl = process.env.DUFFEL_API_URL
 
   return NextResponse.json({
-    duffelApiKey: duffelApiKey ? `${duffelApiKey.substring(0, 10)}...` : "NOT SET",
+    duffelApiKey: duffelApiKey ? "[REDACTED]" : "NOT SET",
     duffelApiUrl: duffelApiUrl || "NOT SET",
     hasApiKey: !!duffelApiKey,
     environment: process.env.NODE_ENV,

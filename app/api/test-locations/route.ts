@@ -45,7 +45,7 @@ export async function GET() {
         status: airportsResponse.status,
         data: airportsData,
       },
-      apiKeyUsed: apiKey.substring(0, 20) + "...",
+      apiKeyUsed: "[REDACTED]",
     })
   } catch (error) {
     return NextResponse.json({
