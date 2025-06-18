@@ -251,6 +251,16 @@ class FlightService {
       {
         id: "3",
         type: "airport",
+        iata_code: "DLA",
+        name: "Douala International Airport",
+        city_name: "Douala",
+        country_name: "Cameroon",
+        country_code: "CM",
+        display_name: "Douala (DLA) - Douala International Airport, Cameroon",
+      },
+      {
+        id: "4",
+        type: "airport",
         iata_code: "LHR",
         name: "Heathrow Airport",
         city_name: "London",
@@ -259,7 +269,7 @@ class FlightService {
         display_name: "London (LHR) - Heathrow Airport, United Kingdom",
       },
       {
-        id: "4",
+        id: "5",
         type: "airport",
         iata_code: "LGW",
         name: "Gatwick Airport",
@@ -269,7 +279,7 @@ class FlightService {
         display_name: "London (LGW) - Gatwick Airport, United Kingdom",
       },
       {
-        id: "5",
+        id: "6",
         type: "airport",
         iata_code: "DXB",
         name: "Dubai International Airport",
@@ -279,7 +289,7 @@ class FlightService {
         display_name: "Dubai (DXB) - Dubai International Airport, United Arab Emirates",
       },
       {
-        id: "6",
+        id: "7",
         type: "airport",
         iata_code: "JFK",
         name: "John F. Kennedy International Airport",
@@ -289,7 +299,7 @@ class FlightService {
         display_name: "New York (JFK) - John F. Kennedy International Airport, United States",
       },
       {
-        id: "7",
+        id: "8",
         type: "airport",
         iata_code: "LAX",
         name: "Los Angeles International Airport",
@@ -299,7 +309,7 @@ class FlightService {
         display_name: "Los Angeles (LAX) - Los Angeles International Airport, United States",
       },
       {
-        id: "8",
+        id: "9",
         type: "airport",
         iata_code: "CDG",
         name: "Charles de Gaulle Airport",
@@ -818,6 +828,130 @@ class FlightService {
       console.error("Flight details error:", error)
       return null
     }
+  }
+
+  // Get upcoming flights from user's location to popular destinations
+  async getUpcomingFlightsFromLocation(userLocation: string): Promise<FlightOffer[]> {
+    try {
+      console.log("Getting upcoming flights from user location:", userLocation)
+
+      // Popular destinations to search for
+      const popularDestinations = [
+        "LAX", "JFK", "LHR", "CDG", "DXB", "SIN", "HKG", "NRT", "SYD", "YYZ",
+        "FRA", "AMS", "MAD", "BCN", "MUC", "ZRH", "VIE", "CPH", "OSL", "ARN",
+        "DLA", "LOS", "ABV", "CAI", "NBO", "JNB"
+      ]
+
+      // Get flights for next 30 days
+      const today = new Date()
+      const upcomingDates: string[] = []
+      for (let i = 1; i <= 30; i++) {
+        const date = new Date(today)
+        date.setDate(today.getDate() + i)
+        upcomingDates.push(date.toISOString().split('T')[0])
+      }
+
+      // Search for flights to each destination for upcoming dates
+      const flightPromises = popularDestinations.slice(0, 5).map(async (destination) => {
+        const randomIndex = Math.floor(Math.random() * upcomingDates.length)
+        const randomDate = upcomingDates[randomIndex]
+        
+        try {
+          const flights = await this.searchFlightsDirect({
+            origin: userLocation,
+            destination: destination,
+            departureDate: randomDate,
+            passengers: 1,
+            cabinClass: "economy"
+          })
+          
+          return flights.slice(0, 3) // Get top 3 flights per destination
+        } catch (error) {
+          console.error(`Error getting flights to ${destination}:`, error)
+          return []
+        }
+      })
+
+      const allFlights = await Promise.allSettled(flightPromises)
+      const successfulFlights = allFlights
+        .filter(result => result.status === 'fulfilled')
+        .flatMap(result => (result as PromiseFulfilledResult<FlightOffer[]>).value)
+
+      // Sort by price and limit results
+      const sortedFlights = successfulFlights
+        .sort((a, b) => a.price - b.price)
+        .slice(0, 20)
+
+      console.log(`Found ${sortedFlights.length} upcoming flights from ${userLocation}`)
+      return sortedFlights
+
+    } catch (error) {
+      console.error("Error getting upcoming flights:", error)
+      return this.getMockUpcomingFlights(userLocation)
+    }
+  }
+
+  // Mock upcoming flights for fallback
+  private getMockUpcomingFlights(userLocation: string): FlightOffer[] {
+    const destinations = ["LAX", "JFK", "LHR", "CDG", "DXB", "SIN", "HKG", "NRT", "SYD", "YYZ", "DLA", "LOS", "ABV"]
+    const airlines = ["Emirates", "British Airways", "Lufthansa", "Air France", "Delta", "American Airlines", "Camair-Co", "Air Côte d'Ivoire"]
+    
+    return destinations.map((destination, index) => ({
+      id: `upcoming_${index + 1}`,
+      airline: airlines[index % airlines.length],
+      flightNumber: `${airlines[index % airlines.length].substring(0, 2).toUpperCase()} ${Math.floor(Math.random() * 9999) + 1000}`,
+      departure: {
+        time: `${Math.floor(Math.random() * 12) + 6}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+        airport: userLocation,
+        city: this.getCityName(userLocation),
+        date: new Date(Date.now() + (index + 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      },
+      arrival: {
+        time: `${Math.floor(Math.random() * 12) + 12}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`,
+        airport: destination,
+        city: this.getCityName(destination),
+        date: new Date(Date.now() + (index + 1) * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      },
+      duration: `${Math.floor(Math.random() * 8) + 4}h ${Math.floor(Math.random() * 60)}m`,
+      stops: Math.floor(Math.random() * 2),
+      price: Math.floor(Math.random() * 800) + 200,
+      currency: "USD",
+      amenities: ["wifi", "meals", "entertainment"],
+      baggage: "23kg included",
+      class: "Economy",
+    }))
+  }
+
+  private getCityName(iataCode: string): string {
+    const cityMap: Record<string, string> = {
+      "JFK": "New York",
+      "LAX": "Los Angeles",
+      "LHR": "London",
+      "CDG": "Paris",
+      "DXB": "Dubai",
+      "SIN": "Singapore",
+      "HKG": "Hong Kong",
+      "NRT": "Tokyo",
+      "SYD": "Sydney",
+      "YYZ": "Toronto",
+      "FRA": "Frankfurt",
+      "AMS": "Amsterdam",
+      "MAD": "Madrid",
+      "BCN": "Barcelona",
+      "MUC": "Munich",
+      "ZRH": "Zurich",
+      "VIE": "Vienna",
+      "CPH": "Copenhagen",
+      "OSL": "Oslo",
+      "ARN": "Stockholm",
+      "LOS": "Lagos",
+      "ABV": "Abuja",
+      "DLA": "Douala",
+      "CAI": "Cairo",
+      "NBO": "Nairobi",
+      "JNB": "Johannesburg",
+    }
+    return cityMap[iataCode] || iataCode
   }
 }
 

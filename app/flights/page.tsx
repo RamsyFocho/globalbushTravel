@@ -7,8 +7,9 @@ import { FlightSearchForm } from "@/components/flight-search-form"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Search, Filter } from "lucide-react"
+import { Search, Filter, MapPin, Plane } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { UpcomingFlights } from "@/components/upcoming-flights"
 
 interface FlightSearchParams {
   from?: string
@@ -25,14 +26,17 @@ export default function FlightsPage() {
   const [filters, setFilters] = useState<Record<string, any>>({})
   const [showSearchForm, setShowSearchForm] = useState(false)
   const [showFilters, setShowFilters] = useState(false)
+  const [userLocation, setUserLocation] = useState<string>("DLA")
 
-  // Check if user came from homepage with search params
+  // Get user's location and check for search params
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
     const hasSearchParams = urlParams.has("from") || urlParams.has("to") || urlParams.has("date")
 
     if (!hasSearchParams) {
       setShowSearchForm(true)
+      // Try to get user's location
+      getUserLocation()
     } else {
       setSearchParams({
         from: urlParams.get("from") || "",
@@ -45,6 +49,44 @@ export default function FlightsPage() {
       })
     }
   }, [])
+
+  const getUserLocation = async () => {
+    try {
+      // Try to get location from browser geolocation
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords
+            // For now, we'll use a simple mapping or default to DLA
+            // In a real app, you'd call a geocoding service to get the nearest airport
+            const nearestAirport = await getNearestAirport(latitude, longitude)
+            setUserLocation(nearestAirport)
+          },
+          (error) => {
+            console.log("Geolocation error:", error)
+            // Default to DLA if geolocation fails
+            setUserLocation("DLA")
+          }
+        )
+      } else {
+        setUserLocation("DLA")
+      }
+    } catch (error) {
+      console.error("Error getting user location:", error)
+      setUserLocation("DLA")
+    }
+  }
+
+  const getNearestAirport = async (lat: number, lng: number): Promise<string> => {
+    // Simple mapping based on coordinates
+    // In a real app, you'd call a geocoding service
+    if (lat >= 40 && lat <= 42 && lng >= -74 && lng <= -72) return "JFK" // NYC area
+    if (lat >= 33 && lat <= 35 && lng >= -119 && lng <= -117) return "LAX" // LA area
+    if (lat >= 51 && lat <= 52 && lng >= -1 && lng <= 1) return "LHR" // London area
+    if (lat >= 6 && lat <= 7 && lng >= 3 && lng <= 4) return "LOS" // Lagos area
+    if (lat >= 4 && lat <= 5 && lng >= 9 && lng <= 10) return "DLA" // Douala area
+    return "DLA" // Default to Douala
+  }
 
   const handleSearch = useCallback((newSearchParams: FlightSearchParams) => {
     setSearchParams(newSearchParams)
@@ -79,6 +121,8 @@ export default function FlightsPage() {
     return `${searchParams.from} → ${searchParams.to} • ${searchParams.departureDate} • ${searchParams.passengers} Passenger${searchParams.passengers !== 1 ? "s" : ""} • ${cabinClassLabel}`
   }
 
+  const hasActiveSearch = searchParams.from && searchParams.to
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Breadcrumb className="mb-6" />
@@ -89,7 +133,7 @@ export default function FlightsPage() {
       </div>
 
       {/* Search Form Section */}
-      {(showSearchForm || !searchParams.from || !searchParams.to) && (
+      {(showSearchForm || !hasActiveSearch) && (
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -104,7 +148,7 @@ export default function FlightsPage() {
       )}
 
       {/* Modify Search Button */}
-      {searchParams.from && searchParams.to && !showSearchForm && (
+      {hasActiveSearch && !showSearchForm && (
         <div className="mb-6">
           <Button
             variant="outline"
@@ -118,7 +162,7 @@ export default function FlightsPage() {
       )}
 
       {/* Results Section */}
-      {searchParams.from && searchParams.to && (
+      {hasActiveSearch ? (
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Mobile Filter Toggle */}
           <div className="lg:hidden">
@@ -146,6 +190,17 @@ export default function FlightsPage() {
           <div className="lg:col-span-3">
             <EnhancedFlightSearchResults filters={filters} searchParams={searchParams} />
           </div>
+        </div>
+      ) : (
+        /* Upcoming Flights Section */
+        <div className="space-y-8">
+          <div className="flex items-center gap-2 mb-6">
+            <MapPin className="h-5 w-5 text-grassland-600" />
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              Upcoming Flights from {userLocation}
+            </h2>
+          </div>
+          <UpcomingFlights userLocation={userLocation} />
         </div>
       )}
     </div>
