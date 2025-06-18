@@ -4,6 +4,7 @@ import { EnhancedHotelFilters } from "@/components/enhanced-hotel-filters"
 import { Breadcrumb } from "@/components/breadcrumb"
 import { StructuredData, organizationSchema } from "@/components/structured-data"
 import { generateMetadata, seoPages } from "@/lib/seo/metadata"
+import { HotelSearchWithFilters } from "@/components/hotel-search-with-filters"
 
 export const metadata: Metadata = generateMetadata(seoPages.hotels)
 
@@ -22,22 +23,5 @@ export default function HotelsPage() {
         <HotelSearchWithFilters />
       </div>
     </>
-  )
-}
-
-function HotelSearchWithFilters() {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-      <div className="lg:col-span-1">
-        <EnhancedHotelFilters
-          onFiltersChange={(filters) => {
-            console.log("Hotel filters changed:", filters)
-          }}
-        />
-      </div>
-      <div className="lg:col-span-3">
-        <EnhancedHotelSearchResults />
-      </div>
-    </div>
   )
 }
