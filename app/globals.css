@@ -1,0 +1,388 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Ensure proper text contrast in dark mode */
+  .dark {
+    color-scheme: dark;
+  }
+
+  /* Fix input and form elements in dark mode */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    background-color: rgb(31 41 55);
+    color: rgb(243 244 246);
+    border-color: rgb(75 85 99);
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: rgb(156 163 175);
+  }
+
+  /* Fix dropdown and popover backgrounds */
+  .dark [data-radix-popper-content-wrapper] {
+    background-color: rgb(31 41 55);
+    border-color: rgb(55 65 81);
+  }
+
+  /* Ensure proper scrollbar styling */
+  .dark ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background-color: rgb(31 41 55);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: rgb(75 85 99);
+    border-radius: 4px;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(107 114 128);
+  }
+}
+
+/* Custom toast styles with improved dark mode support */
+.toast-container {
+  font-family: inherit;
+}
+
+.Toastify__toast {
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border-width: 1px;
+}
+
+.Toastify__toast--success {
+  background-color: rgb(34 197 94);
+  color: white;
+  border-color: rgb(21 128 61);
+}
+
+.Toastify__toast--error {
+  background-color: rgb(239 68 68);
+  color: white;
+  border-color: rgb(185 28 28);
+}
+
+.Toastify__toast--info {
+  background-color: rgb(59 130 246);
+  color: white;
+  border-color: rgb(29 78 216);
+}
+
+.Toastify__toast--warning {
+  background-color: rgb(245 158 11);
+  color: white;
+  border-color: rgb(180 83 9);
+}
+
+.Toastify__progress-bar--success {
+  background-color: rgb(134 239 172);
+}
+
+.Toastify__progress-bar--error {
+  background-color: rgb(252 165 165);
+}
+
+.Toastify__progress-bar--info {
+  background-color: rgb(147 197 253);
+}
+
+.Toastify__progress-bar--warning {
+  background-color: rgb(253 230 138);
+}
+
+/* Dark mode toast adjustments */
+.dark .Toastify__toast {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.dark .Toastify__toast--success {
+  background-color: rgb(21 128 61);
+  border-color: rgb(34 197 94);
+}
+
+.dark .Toastify__toast--error {
+  background-color: rgb(185 28 28);
+  border-color: rgb(239 68 68);
+}
+
+.dark .Toastify__toast--info {
+  background-color: rgb(29 78 216);
+  border-color: rgb(59 130 246);
+}
+
+.dark .Toastify__toast--warning {
+  background-color: rgb(180 83 9);
+  border-color: rgb(245 158 11);
+}
+
+.dark .Toastify__close-button {
+  color: white;
+  opacity: 0.7;
+}
+
+.dark .Toastify__close-button:hover {
+  opacity: 1;
+}
+
+/* Improved focus states for accessibility */
+.focus-visible:focus {
+  outline: 2px solid rgb(34 197 94);
+  outline-offset: 2px;
+}
+
+.dark .focus-visible:focus {
+  outline-color: rgb(74 222 128);
+}
+
+/* Ensure proper text selection colors */
+::selection {
+  background-color: rgb(187 247 208);
+  color: rgb(20 83 45);
+}
+
+.dark ::selection {
+  background-color: rgb(20 83 45);
+  color: rgb(187 247 208);
+}
+
+/* Fix calendar component in dark mode */
+.dark .rdp {
+  color: rgb(243 244 246);
+}
+
+.dark .rdp-day_selected {
+  background-color: rgb(34 197 94);
+  color: white;
+}
+
+.dark .rdp-day:hover {
+  background-color: rgb(55 65 81);
+}
+
+/* Improve slider component visibility in dark mode */
+.dark [data-radix-slider-track] {
+  background-color: rgb(55 65 81);
+}
+
+.dark [data-radix-slider-range] {
+  background-color: rgb(34 197 94);
+}
+
+.dark [data-radix-slider-thumb] {
+  background-color: rgb(34 197 94);
+  border-color: rgb(21 128 61);
+}
+
+/* Fix checkbox and radio button visibility in dark mode */
+.dark [data-radix-checkbox-root] {
+  background-color: rgb(31 41 55);
+  border-color: rgb(75 85 99);
+}
+
+.dark [data-radix-checkbox-root][data-state="checked"] {
+  background-color: rgb(34 197 94);
+  border-color: rgb(34 197 94);
+}
+
+.dark [data-radix-radio-root] {
+  background-color: rgb(31 41 55);
+  border-color: rgb(75 85 99);
+}
+
+.dark [data-radix-radio-root][data-state="checked"] {
+  background-color: rgb(34 197 94);
+  border-color: rgb(34 197 94);
+}
+
+/* Ensure proper contrast for disabled elements */
+.dark .disabled\:opacity-50:disabled {
+  opacity: 0.4;
+}
+
+/* Improve loading states */
+@keyframes pulse-dark {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.dark .animate-pulse {
+  animation: pulse-dark 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom dark mode shadows without circular dependencies */
+.dark-shadow-lg {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.dark-shadow-md {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Dark mode specific styles */
+.dark .bg-white {
+  background-color: rgb(31 41 55);
+}
+
+.dark .bg-gray-50 {
+  background-color: rgb(55 65 81);
+}
+
+.dark .bg-gray-100 {
+  background-color: rgb(75 85 99);
+}
+
+.dark .text-gray-900 {
+  color: rgb(243 244 246);
+}
+
+.dark .text-gray-800 {
+  color: rgb(229 231 235);
+}
+
+.dark .text-gray-700 {
+  color: rgb(209 213 219);
+}
+
+.dark .text-gray-600 {
+  color: rgb(156 163 175);
+}
+
+.dark .text-gray-500 {
+  color: rgb(107 114 128);
+}
+
+.dark .text-gray-400 {
+  color: rgb(75 85 99);
+}
+
+.dark .border-gray-200 {
+  border-color: rgb(55 65 81);
+}
+
+.dark .border-gray-300 {
+  border-color: rgb(75 85 99);
+}
+
+.dark .border-gray-400 {
+  border-color: rgb(107 114 128);
+}
+
+/* Hover states for dark mode */
+.dark .hover\:bg-gray-50:hover {
+  background-color: rgb(55 65 81);
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: rgb(75 85 99);
+}
+
+.dark .hover\:text-gray-900:hover {
+  color: rgb(243 244 246);
+}
+
+/* Fix muted text in dark mode */
+.dark .text-muted-foreground {
+  color: rgb(156 163 175);
+}
+
+/* Card and component backgrounds in dark mode */
+.dark .bg-card {
+  background-color: rgb(31 41 55);
+}
+
+.dark .bg-popover {
+  background-color: rgb(31 41 55);
+}
+
+.dark .bg-secondary {
+  background-color: rgb(55 65 81);
+  color: rgb(209 213 219);
+}
+
+/* Button hover states in dark mode */
+.dark .hover\:bg-grassland-50:hover {
+  background-color: rgb(20 83 45);
+}
+
+.dark .hover\:bg-grassland-900:hover {
+  background-color: rgb(20 83 45);
+}
+
+/* Ensure proper visibility for all interactive elements */
+.dark button,
+.dark [role="button"] {
+  color: rgb(243 244 246);
+}
+
+.dark button:disabled,
+.dark [role="button"]:disabled {
+  color: rgb(107 114 128);
+}
