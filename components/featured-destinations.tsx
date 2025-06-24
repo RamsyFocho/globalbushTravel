@@ -252,53 +252,59 @@ export function FeaturedDestinations() {
 
         {/* "Where will you go?" Section */}
         <div className="mt-20">
-          <div className="text-center mb-10">
+          {/* Heading Section - Now above both map and destinations */}
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">
               Where will you go?
             </h2>
-            <Link
-              href="/destinations"
-              className="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center"
-            >
-              Explore destinations <ChevronRight className="ml-1 h-5 w-5" />
-            </Link>
-            <p className="text-gray-500 mt-2">From Douala</p>
           </div>
 
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col lg:flex-row gap-8 relative">
             {/* Map Section - Left Side */}
-            <div className="lg:w-1/2 h-100 bg-gray-100 rounded-xl overflow-hidden">
+            <div className="lg:w-1/2 h-[500px] bg-gray-100 rounded-xl overflow-hidden">
               <Image
-                src="/sample-map.jpg" // Replace with your map image import
+                src="/sample-map.jpg"
                 alt="Travel destinations map"
                 width={800}
                 height={600}
                 className="object-cover w-full h-full"
               />
+              {/* "From Douala" positioned at bottom of map */}
+              <div className="absolute bottom-4 left-4 bg-white/90 px-3 py-2 rounded-lg">
+                <p className="text-gray-700 font-medium">From Douala</p>
+              </div>
             </div>
 
             {/* Destinations Grid - Right Side */}
-            <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+            <div className="lg:w-1/2 grid grid-cols-2 gap-4 relative">
+              {/* "Explore destinations" link positioned absolutely over images */}
+              <Link
+                href="/destinations"
+                className="absolute -top-8 right-0 text-purple-600 hover:text-purple-800 font-medium inline-flex items-center z-10"
+              >
+                Explore destinations <ChevronRight className="ml-1 h-5 w-5" />
+              </Link>
+
               {[
                 {
                   category: "Romantic Escapes",
                   price: "M1,170,600",
-                  image: img10, // Replace with your image import
+                  image: img10,
                 },
                 {
                   category: "Family Friendly",
                   price: "M1,643,570",
-                  image: img11, // Replace with your image import
+                  image: img11,
                 },
                 {
                   category: "Beautiful Beaches",
                   price: "M1,817,760",
-                  image: img12, // Replace with your image import
+                  image: img12,
                 },
                 {
                   category: "African Getaways",
                   price: "M1,477,040",
-                  image: img13, // Replace with your image import
+                  image: img13,
                 },
               ].map((destination) => (
                 <motion.div
