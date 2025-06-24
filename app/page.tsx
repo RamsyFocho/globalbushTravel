@@ -1,7 +1,9 @@
+// "use client"
 import type { Metadata } from "next"
 import { HeroSection } from "@/components/hero-section"
 import { SearchTabs } from "@/components/search-tabs"
 import { FeaturedDestinations } from "@/components/featured-destinations"
+import TravelExplorer from "@/components/destinationsFeature/TravelExplorer"
 import { WhyChooseUs } from "@/components/why-choose-us"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { StructuredData, organizationSchema } from "@/components/structured-data"
@@ -70,6 +72,7 @@ export default function HomePage() {
           <SearchTabs />
         </div>
         <FeaturedDestinations />
+        <TravelExplorer/>
         <WhyChooseUs />
         <TestimonialsSection />
       </div>

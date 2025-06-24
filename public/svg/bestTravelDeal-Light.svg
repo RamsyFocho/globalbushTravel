@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Price tag background -->
+  <path d="M20 3H28C29.1046 3 30 3.89543 30 5V13L16 27L3 14L17 0H20Z" fill="#EF4444" stroke="#DC2626" stroke-width="1.5"/>
+  
+  <!-- Price tag hole -->
+  <circle cx="24" cy="9" r="2" fill="white"/>
+  
+  <!-- Dollar sign -->
+  <path d="M10 10V8C10 7.44772 10.4477 7 11 7H13C13.5523 7 14 7.44772 14 8V10M10 10V14M10 10H14M10 14V16C10 16.5523 10.4477 17 11 17H13C13.5523 17 14 16.5523 14 16V14M10 14H14M12 5V7M12 17V19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Discount percentage -->
+  <circle cx="6" cy="6" r="5" fill="#10B981" stroke="white" stroke-width="2"/>
+  <text x="6" y="8" font-family="Arial, sans-serif" font-size="6" font-weight="bold" text-anchor="middle" fill="white">%</text>
+  
+  <!-- Sparkle effects -->
+  <path d="M26 20L27.5 22.5L30 24L27.5 25.5L26 28L24.5 25.5L22 24L24.5 22.5L26 20Z" fill="#FCD34D"/>
+  <path d="M4 22L4.75 23.25L6 24L4.75 24.75L4 26L3.25 24.75L2 24L3.25 23.25L4 22Z" fill="#FCD34D"/>
+  <path d="M28 12L28.5 12.75L29.25 13.25L28.5 13.75L28 14.5L27.5 13.75L26.75 13.25L27.5 12.75L28 12Z" fill="#FCD34D"/>
+</svg>
