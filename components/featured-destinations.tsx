@@ -150,7 +150,7 @@ export function FeaturedDestinations() {
         {/* Flight Deals Section */}
         <div className="text-center mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-1">
-            Our best flight deals from Lagos
+            Our best flight deals from Cameroon
           </h2>
           <p className="text-gray-600">
             The lowest fares we've found this week
