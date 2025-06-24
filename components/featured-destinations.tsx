@@ -1,99 +1,332 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { MapPin, Star } from "lucide-react"
+"use client";
 
-const destinations = [
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import img1 from "@/assets/img1.jpg";
+import img2 from "@/assets/img2.jpg";
+import img3 from "@/assets/img3.jpg";
+import img4 from "@/assets/img4.jpg";
+import img5 from "@/assets/img5.jpg";
+import img6 from "@/assets/img6.jpg";
+import img7 from "@/assets/img7.jpg";
+import img8 from "@/assets/img8.jpg";
+import img9 from "@/assets/img9.jpg";
+import img10 from "@/assets/img10.jpeg";
+import img11 from "@/assets/img11.jpg";
+import img12 from "@/assets/img12.jpg";
+import img13 from "@/assets/img13.jpg";
+
+interface FlightDeal {
+  id: number;
+  country: string;
+  city: string;
+  price: string;
+  image: any; // Using 'any' for imported images
+}
+
+const flightDeals: FlightDeal[] = [
   {
     id: 1,
-    name: "Dubai, UAE",
-    image: "/placeholder.svg?height=300&width=400",
-    price: "From $899",
-    rating: 4.8,
-    description: "Experience luxury and adventure in the heart of the Middle East",
+    country: "Turkey",
+    city: "Istanbul",
+    price: "CFA870,943",
+    image: img1,
   },
   {
     id: 2,
-    name: "Paris, France",
-    image: "/placeholder.svg?height=300&width=400",
-    price: "From $1,299",
-    rating: 4.9,
-    description: "The city of love and lights awaits your arrival",
+    country: "Cyprus",
+    city: "Cyprus, Ercan",
+    price: "CFA1,346,610",
+    image: img2,
   },
   {
     id: 3,
-    name: "Tokyo, Japan",
-    image: "/placeholder.svg?height=300&width=400",
-    price: "From $1,199",
-    rating: 4.7,
-    description: "Discover the perfect blend of tradition and modernity",
+    country: "Saudi Arabia",
+    city: "Jeddah",
+    price: "CFA1,014,180",
+    image: img3,
   },
   {
     id: 4,
-    name: "Cape Town, South Africa",
-    image: "/placeholder.svg?height=300&width=400",
-    price: "From $799",
-    rating: 4.6,
-    description: "Breathtaking landscapes and rich cultural heritage",
+    country: "United Arab Emirates",
+    city: "Dubai",
+    price: "CFA872,744",
+    image: img4,
   },
-]
+  {
+    id: 5,
+    country: "France",
+    city: "Paris",
+    price: "CFA1,250,000",
+    image: img5,
+  },
+  {
+    id: 6,
+    country: "USA",
+    city: "New York",
+    price: "CFA1,850,000",
+    image: img6,
+  },
+  {
+    id: 7,
+    country: "Maldives",
+    city: "Malé",
+    price: "CFA2,150,000",
+    image: img7,
+  },
+  {
+    id: 8,
+    country: "South Africa",
+    city: "Cape Town",
+    price: "CFA1,450,000",
+    image: img8,
+  },
+  {
+    id: 9,
+    country: "China",
+    city: "Beijing",
+    price: "CFA1,750,000",
+    image: img9,
+  },
+];
+
+interface PopularDestination {
+  name: string;
+  image: any; // Using 'any' for imported images
+}
+
+const popularDestinations: PopularDestination[] = [
+  { name: "Dubai", image: img4 },
+  { name: "Paris", image: img5 },
+  { name: "New York", image: img6 },
+  { name: "Maldives", image: img7 },
+  { name: "Cape Town", image: img8 },
+];
 
 export function FeaturedDestinations() {
+  const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
+  const itemsPerPage = 3;
+
+  const paginate = (newDirection: number) => {
+    const newPage = page + newDirection;
+    if (
+      newPage >= 0 &&
+      newPage <= Math.ceil(flightDeals.length / itemsPerPage) - 1
+    ) {
+      setPage([newPage, newDirection]);
+    }
+  };
+
+  const variants: Variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 100 : -100,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      },
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? 100 : -100,
+      opacity: 0,
+      transition: {
+        duration: 0.2,
+      },
+    }),
+  };
+
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-12 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured Destinations</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our most popular destinations and start planning your next adventure
+        {/* Flight Deals Section */}
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-1">
+            Our best flight deals from Lagos
+          </h2>
+          <p className="text-gray-600">
+            The lowest fares we've found this week
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {destinations.map((destination) => (
-            <Card key={destination.id} className="group hover:shadow-lg transition-shadow overflow-hidden">
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={destination.image || "/placeholder.svg"}
-                  alt={destination.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center space-x-1">
-                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                  <span className="text-xs font-medium">{destination.rating}</span>
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <div className="flex items-center space-x-1 text-gray-500 mb-2">
-                  <MapPin className="h-4 w-4" />
-                  <span className="text-sm">{destination.name}</span>
-                </div>
-                <h3 className="font-semibold text-lg mb-2">{destination.name}</h3>
-                <p className="text-gray-600 text-sm mb-3">{destination.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-grassland-600">{destination.price}</span>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    asChild
-                    className="border-grassland-600 text-grassland-600 hover:bg-grassland-600 hover:text-white"
-                  >
-                    <Link href={`/destinations/${destination.id}`}>Explore</Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+        <div className="relative h-[28rem] mb-20">
+          <button
+            onClick={() => paginate(-1)}
+            disabled={page === 0}
+            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-purple-50 transition-all ${
+              page === 0 ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            aria-label="Previous destinations"
+          >
+            <ChevronLeft className="h-6 w-6 text-purple-700" />
+          </button>
+
+          <div className="relative h-full w-full overflow-hidden">
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={page}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                className="absolute inset-0 grid grid-cols-1 md:grid-cols-3 gap-6 px-12"
+              >
+                {flightDeals
+                  .slice(
+                    page * itemsPerPage,
+                    page * itemsPerPage + itemsPerPage
+                  )
+                  .map((deal) => (
+                    <motion.div
+                      key={deal.id}
+                      whileHover={{ scale: 1.03 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      }}
+                      className="relative h-full rounded-xl overflow-hidden shadow-lg"
+                    >
+                      <Image
+                        src={deal.image}
+                        alt={`${deal.city} skyline`}
+                        fill
+                        className="object-cover"
+                        priority
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6 text-white">
+                        <p className="text-sm mb-1">{deal.country}</p>
+                        <h3 className="text-2xl font-bold mb-2">{deal.city}</h3>
+                        <p className="text-xl font-bold text-purple-300">
+                          from {deal.price}
+                        </p>
+                        <Button
+                          asChild
+                          className="mt-4 bg-purple-600 hover:bg-purple-700 text-white w-fit"
+                        >
+                          <Link href={`/flights?destination=${deal.city}`}>
+                            Book Now
+                          </Link>
+                        </Button>
+                      </div>
+                    </motion.div>
+                  ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <button
+            onClick={() => paginate(1)}
+            disabled={
+              page >= Math.floor((flightDeals.length - 1) / itemsPerPage)
+            }
+            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-purple-50 transition-all ${
+              page >= Math.floor((flightDeals.length - 1) / itemsPerPage)
+                ? "opacity-50 cursor-not-allowed"
+                : ""
+            }`}
+            aria-label="Next destinations"
+          >
+            <ChevronRight className="h-6 w-6 text-purple-700" />
+          </button>
         </div>
 
-        <div className="text-center">
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/destinations">View All Destinations</Link>
+        <div className="flex justify-center mt-8 mb-16">
+          <Button
+            asChild
+            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 text-lg transition-transform hover:scale-105"
+          >
+            <Link href="/flights">View All Flight Deals</Link>
           </Button>
+        </div>
+
+        {/* "Where will you go?" Section */}
+        <div className="mt-20">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              Where will you go?
+            </h2>
+            <Link
+              href="/destinations"
+              className="text-purple-600 hover:text-purple-800 font-medium inline-flex items-center"
+            >
+              Explore destinations <ChevronRight className="ml-1 h-5 w-5" />
+            </Link>
+            <p className="text-gray-500 mt-2">From Douala</p>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Map Section - Left Side */}
+            <div className="lg:w-1/2 h-100 bg-gray-100 rounded-xl overflow-hidden">
+              <Image
+                src="/sample-map.jpg" // Replace with your map image import
+                alt="Travel destinations map"
+                width={800}
+                height={600}
+                className="object-cover w-full h-full"
+              />
+            </div>
+
+            {/* Destinations Grid - Right Side */}
+            <div className="lg:w-1/2 grid grid-cols-2 gap-4">
+              {[
+                {
+                  category: "Romantic Escapes",
+                  price: "M1,170,600",
+                  image: img10, // Replace with your image import
+                },
+                {
+                  category: "Family Friendly",
+                  price: "M1,643,570",
+                  image: img11, // Replace with your image import
+                },
+                {
+                  category: "Beautiful Beaches",
+                  price: "M1,817,760",
+                  image: img12, // Replace with your image import
+                },
+                {
+                  category: "African Getaways",
+                  price: "M1,477,040",
+                  image: img13, // Replace with your image import
+                },
+              ].map((destination) => (
+                <motion.div
+                  key={destination.category}
+                  whileHover={{ y: -5 }}
+                  className="relative h-48 sm:h-56 rounded-lg overflow-hidden group"
+                >
+                  <Image
+                    src={destination.image}
+                    alt={destination.category}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
+                    <h3 className="text-white font-bold text-lg mb-1">
+                      {destination.category}
+                    </h3>
+                    <p className="text-purple-300 font-semibold text-sm sm:text-base">
+                      from {destination.price}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
