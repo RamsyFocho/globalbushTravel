@@ -13,23 +13,38 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com"),
-  title: {
-    default: "Global Bush Travel - Your Gateway to the World",
-    template: "%s | Global Bush Travel",
+  title: "GlobalBushTravel - Your Trusted Travel Partner",
+  description: "Book flights, hotels, and vacation packages with GlobalBushTravel. Your trusted partner for global travel solutions.",
+  keywords: ["travel", "flights", "hotels", "vacation packages", "booking"],
+  openGraph: {
+    title: "GlobalBushTravel - Your Trusted Travel Partner",
+    description: "Book flights, hotels, and vacation packages with GlobalBushTravel.",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com",
+    siteName: "GlobalBushTravel",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com"}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: "GlobalBushTravel",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
   },
-  description:
-    "Book flights, hotels, holiday packages, visa assistance, and airport transfers with Global Bush Travel. Your trusted travel partner since 2020.",
-  keywords: [
-    "travel booking",
-    "flights",
-    "hotels",
-    "holiday packages",
-    "visa assistance",
-    "airport transfers",
-    "travel agency",
-    "Nigeria travel",
-    "international flights",
-  ],
+  twitter: {
+    card: "summary_large_image",
+    title: "GlobalBushTravel - Your Trusted Travel Partner",
+    description: "Book flights, hotels, and vacation packages with GlobalBushTravel.",
+    images: [`${process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com"}/og-image.jpg`],
+  },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com",
+  },
+  other: {
+    "google-site-verification": "your-verification-code",
+    urlTemplate: `${process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com"}/search?q={search_term_string}`,
+  },
   authors: [{ name: "Global Bush Travel" }],
   creator: "Global Bush Travel",
   publisher: "Global Bush Travel",
@@ -66,8 +81,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       </head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange={false}>
