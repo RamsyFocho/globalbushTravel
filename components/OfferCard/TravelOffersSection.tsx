@@ -118,6 +118,7 @@ const TravelOffersSection = ({
 
     useEffect(() => {
       const getFormattedPayNow = async () => {
+        console.log(offer.payNow);
         const formattedValue = await format(offer.payNow, offer.currency);
         setFormattedPayNow(formattedValue);
       };
