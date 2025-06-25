@@ -97,7 +97,7 @@ export default function FlightsPage() {
     Object.entries(newSearchParams).forEach(([key, value]) => {
       if (value) urlParams.set(key, value.toString())
     })
-
+    
     window.history.replaceState({}, "", `${window.location.pathname}?${urlParams.toString()}`)
   }, [])
 

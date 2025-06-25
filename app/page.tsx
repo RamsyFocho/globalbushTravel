@@ -1,48 +1,16 @@
-import type { Metadata } from "next"
+"use client"
 import { HeroSection } from "@/components/hero-section"
 import { SearchTabs } from "@/components/search-tabs"
 import { FeaturedDestinations } from "@/components/featured-destinations"
+import dynamic from 'next/dynamic';
+
+const TravelExplorer = dynamic(() => import('@/components/destinationsFeature/TravelExplorer'), {
+  ssr: false,
+});
 import { WhyChooseUs } from "@/components/why-choose-us"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { StructuredData, organizationSchema } from "@/components/structured-data"
 import { generateMetadata, seoPages } from "@/lib/seo/metadata"
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com"
-
-export const metadata: Metadata = {
-  title: "GlobalBushTravel - Your Trusted Travel Partner",
-  description: "Book flights, hotels, and vacation packages with GlobalBushTravel. Your trusted partner for global travel solutions.",
-  keywords: ["travel", "flights", "hotels", "vacation packages", "booking"],
-  openGraph: {
-    title: "GlobalBushTravel - Your Trusted Travel Partner",
-    description: "Book flights, hotels, and vacation packages with GlobalBushTravel.",
-    url: baseUrl,
-    siteName: "GlobalBushTravel",
-    images: [
-      {
-        url: `${baseUrl}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "GlobalBushTravel",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "GlobalBushTravel - Your Trusted Travel Partner",
-    description: "Book flights, hotels, and vacation packages with GlobalBushTravel.",
-    images: [`${baseUrl}/og-image.jpg`],
-  },
-  alternates: {
-    canonical: baseUrl,
-  },
-  other: {
-    "google-site-verification": "your-verification-code",
-    urlTemplate: `${baseUrl}/search?q={search_term_string}`,
-  },
-}
 
 const homePageSchema = {
   "@context": "https://schema.org",
@@ -70,6 +38,7 @@ export default function HomePage() {
           <SearchTabs />
         </div>
         <FeaturedDestinations />
+        <TravelExplorer/>
         <WhyChooseUs />
         <TestimonialsSection />
       </div>

@@ -103,9 +103,10 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
             <div className="space-y-2 text-gray-300 dark:text-gray-400">
-              <p>📧 info@globalbushtravel.com</p>
-              <p>📞 +234 800 123 4567</p>
-              <p>📍 Lagos, Nigeria</p>
+              <p>📧 info@globalbushtratour.com</p>
+              <p>📞F: (+237) 233 47 70 00</p>
+              <p>📞M: (+237) 677 24 66 24</p>
+              <p>📍 Douala Cameroun Carrefour Eto’o Bonamoussadi</p>
               <p>🕒 24/7 Customer Support</p>
             </div>
           </div>

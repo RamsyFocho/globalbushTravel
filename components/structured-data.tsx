@@ -25,16 +25,17 @@ export const organizationSchema = {
   logo: `${baseUrl}/logo.png`,
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+234-800-123-4567",
+    telephone: "(+237) 677 24 66 24",
     contactType: "customer service",
     availableLanguage: ["English"],
-    areaServed: "NG",
+    areaServed: "CMR",
   },
   address: {
     "@type": "PostalAddress",
-    addressCountry: "NG",
-    addressLocality: "Lagos",
-    addressRegion: "Lagos State",
+    addressCountry: "CMR",
+    addressLocality: "Douala",
+    streetAddress: "Douala, Cameroon",
+    addressRegion: "Douala Cameroun Carrefour Eto’o Bonamoussadi",
   },
   sameAs: [
     "https://facebook.com/globalbushtravel",
