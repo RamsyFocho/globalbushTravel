@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import img1 from "@/assets/img1.jpg";
 import img2 from "@/assets/img2.jpg";
@@ -25,7 +25,7 @@ interface FlightDeal {
   country: string;
   city: string;
   price: string;
-  image: any; // Using 'any' for imported images
+  image: any;
 }
 
 const flightDeals: FlightDeal[] = [
@@ -96,7 +96,7 @@ const flightDeals: FlightDeal[] = [
 
 interface PopularDestination {
   name: string;
-  image: any; // Using 'any' for imported images
+  image: any;
 }
 
 const popularDestinations: PopularDestination[] = [
@@ -109,7 +109,23 @@ const popularDestinations: PopularDestination[] = [
 
 export function FeaturedDestinations() {
   const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
-  const itemsPerPage = 3;
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerPage(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerPage(2);
+      } else {
+        setItemsPerPage(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const paginate = (newDirection: number) => {
     const newPage = page + newDirection;
@@ -145,28 +161,28 @@ export function FeaturedDestinations() {
   };
 
   return (
-    <section className="py-12 bg-white">
-      <div className="container mx-auto px-4">
-        {/* Flight Deals Section */}
-        <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-1">
+    <section className="py-8 md:py-12 bg-white">
+      <div className="container mx-auto px-4 sm:px-6">
+        {/* Flight Deals Section  just modified to be more responsive*/}
+        <div className="text-center mb-8 md:mb-10">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
             Our best flight deals from Cameroon
           </h2>
-          <p className="text-gray-600">
+          <p className="text-sm sm:text-base text-gray-600">
             The lowest fares we've found this week
           </p>
         </div>
 
-        <div className="relative h-[28rem] mb-20">
+        <div className="relative h-[22rem] sm:h-[28rem] mb-12 md:mb-20">
           <button
             onClick={() => paginate(-1)}
             disabled={page === 0}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-purple-50 transition-all ${
+            className={`absolute left-2 sm:left-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:bg-purple-50 transition-all ${
               page === 0 ? "opacity-50 cursor-not-allowed" : ""
             }`}
             aria-label="Previous destinations"
           >
-            <ChevronLeft className="h-6 w-6 text-purple-700" />
+            <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 text-purple-700" />
           </button>
 
           <div className="relative h-full w-full overflow-hidden">
@@ -178,7 +194,7 @@ export function FeaturedDestinations() {
                 initial="enter"
                 animate="center"
                 exit="exit"
-                className="absolute inset-0 grid grid-cols-1 md:grid-cols-3 gap-6 px-12"
+                className="absolute inset-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-2 sm:px-6 md:px-12"
               >
                 {flightDeals
                   .slice(
@@ -188,7 +204,7 @@ export function FeaturedDestinations() {
                   .map((deal) => (
                     <motion.div
                       key={deal.id}
-                      whileHover={{ scale: 1.03 }}
+                      whileHover={{ scale: window.innerWidth > 640 ? 1.03 : 1 }}
                       transition={{
                         type: "spring",
                         stiffness: 400,
@@ -202,17 +218,21 @@ export function FeaturedDestinations() {
                         fill
                         className="object-cover"
                         priority
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-6 text-white">
-                        <p className="text-sm mb-1">{deal.country}</p>
-                        <h3 className="text-2xl font-bold mb-2">{deal.city}</h3>
-                        <p className="text-xl font-bold text-purple-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent flex flex-col justify-end p-4 sm:p-6 text-white">
+                        <p className="text-xs sm:text-sm mb-1">
+                          {deal.country}
+                        </p>
+                        <h3 className="text-lg sm:text-2xl font-bold mb-1 sm:mb-2">
+                          {deal.city}
+                        </h3>
+                        <p className="text-base sm:text-xl font-bold text-purple-300">
                           from {deal.price}
                         </p>
                         <Button
                           asChild
-                          className="mt-4 bg-purple-600 hover:bg-purple-700 text-white w-fit"
+                          className="mt-2 sm:mt-4 bg-purple-600 hover:bg-purple-700 text-white w-fit text-xs sm:text-sm h-8 sm:h-10 px-3 sm:px-4"
                         >
                           <Link href={`/flights?destination=${deal.city}`}>
                             Book Now
@@ -230,38 +250,37 @@ export function FeaturedDestinations() {
             disabled={
               page >= Math.floor((flightDeals.length - 1) / itemsPerPage)
             }
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-3 shadow-lg hover:bg-purple-50 transition-all ${
+            className={`absolute right-2 sm:right-0 top-1/2 -translate-y-1/2 z-20 bg-white rounded-full p-2 sm:p-3 shadow-lg hover:bg-purple-50 transition-all ${
               page >= Math.floor((flightDeals.length - 1) / itemsPerPage)
                 ? "opacity-50 cursor-not-allowed"
                 : ""
             }`}
             aria-label="Next destinations"
           >
-            <ChevronRight className="h-6 w-6 text-purple-700" />
+            <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 text-purple-700" />
           </button>
         </div>
 
-        <div className="flex justify-center mt-8 mb-16">
+        <div className="flex justify-center mt-6 mb-12 md:mb-16">
           <Button
             asChild
-            className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-6 text-lg transition-transform hover:scale-105"
+            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-4 sm:px-8 sm:py-6 text-sm sm:text-lg transition-transform hover:scale-105"
           >
             <Link href="/flights">View All Flight Deals</Link>
           </Button>
         </div>
 
-        {/* "Where will you go?" Section */}
-        <div className="mt-20">
-          {/* Heading Section - Now above both map and destinations */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+        {/* "Where will you go?" Section  by zidane*/}
+        <div className="mt-12 md:mt-20">
+          <div className="text-center mb-6 md:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               Where will you go?
             </h2>
           </div>
-
-          <div className="flex flex-col lg:flex-row gap-8 relative">
+          {/*end of it Flight Deals Section  just modified to be more responsive*/}
+          <div className="flex flex-col lg:flex-row gap-6 md:gap-8 relative">
             {/* Map Section - Left Side */}
-            <div className="lg:w-1/2 h-[500px] bg-gray-100 rounded-xl overflow-hidden">
+            <div className="lg:w-1/2 h-[300px] sm:h-[400px] md:h-[500px] bg-gray-100 rounded-xl overflow-hidden">
               <Image
                 src="/sample-map.jpg"
                 alt="Travel destinations map"
@@ -269,20 +288,21 @@ export function FeaturedDestinations() {
                 height={600}
                 className="object-cover w-full h-full"
               />
-              {/* "From Douala" positioned at bottom of map */}
-              <div className="absolute bottom-4 left-4 bg-white/90 px-3 py-2 rounded-lg">
-                <p className="text-gray-700 font-medium">From Douala</p>
+              <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/90 px-2 py-1 sm:px-3 sm:py-2 rounded-lg">
+                <p className="text-xs sm:text-sm text-gray-700 font-medium">
+                  From Douala
+                </p>
               </div>
             </div>
 
             {/* Destinations Grid - Right Side */}
-            <div className="lg:w-1/2 grid grid-cols-2 gap-4 relative">
-              {/* "Explore destinations" link positioned absolutely over images */}
+            <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 relative">
               <Link
                 href="/destinations"
-                className="absolute -top-8 right-0 text-purple-600 hover:text-purple-800 font-medium inline-flex items-center z-10"
+                className="absolute -top-7 right-0 text-sm sm:text-base text-purple-600 hover:text-purple-800 font-medium inline-flex items-center z-10"
               >
-                Explore destinations <ChevronRight className="ml-1 h-5 w-5" />
+                Explore destinations{" "}
+                <ChevronRight className="ml-1 h-4 w-4 sm:h-5 sm:w-5" />
               </Link>
 
               {[
@@ -309,21 +329,21 @@ export function FeaturedDestinations() {
               ].map((destination) => (
                 <motion.div
                   key={destination.category}
-                  whileHover={{ y: -5 }}
-                  className="relative h-48 sm:h-56 rounded-lg overflow-hidden group"
+                  whileHover={{ y: window.innerWidth > 640 ? -5 : 0 }}
+                  className="relative h-40 sm:h-48 md:h-56 rounded-lg overflow-hidden group"
                 >
                   <Image
                     src={destination.image}
                     alt={destination.category}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 768px) 50vw, 25vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-4">
-                    <h3 className="text-white font-bold text-lg mb-1">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-3 sm:p-4">
+                    <h3 className="text-white font-bold text-base sm:text-lg mb-1">
                       {destination.category}
                     </h3>
-                    <p className="text-purple-300 font-semibold text-sm sm:text-base">
+                    <p className="text-purple-300 font-semibold text-xs sm:text-sm md:text-base">
                       from {destination.price}
                     </p>
                   </div>
@@ -332,6 +352,7 @@ export function FeaturedDestinations() {
             </div>
           </div>
         </div>
+        {/* "Where will you go?" Section  by zidane end's here*/}
       </div>
     </section>
   );
