@@ -11,6 +11,7 @@ import { WhyChooseUs } from "@/components/why-choose-us"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { StructuredData, organizationSchema } from "@/components/structured-data"
 import { generateMetadata, seoPages } from "@/lib/seo/metadata"
+import TravelOffersSection from "@/components/OfferCard/TravelOffersSection"
 
 const homePageSchema = {
   "@context": "https://schema.org",
@@ -38,6 +39,7 @@ export default function HomePage() {
           <SearchTabs />
         </div>
         <FeaturedDestinations />
+        <TravelOffersSection/>
         <TravelExplorer/>
         <WhyChooseUs />
         <TestimonialsSection />

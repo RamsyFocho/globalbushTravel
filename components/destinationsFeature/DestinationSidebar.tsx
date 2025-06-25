@@ -1,5 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence, Variants } from "framer-motion";
+
 
 const destinationCategories = [
   {
@@ -61,8 +63,9 @@ const DestinationSidebar = ({ onDestinationClick }: DestinationSidebarProps) => 
       {/* Destination Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-2 gap-2 xl:gap-4 w-full ">
         {destinationCategories.map((category) => (
-          <div
+          <motion.div
             key={category.id}
+            whileHover={{ y: -3 }}
             onClick={() => handleCategoryClick(category.destinationId)}
             className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer group 2xl:w-[15rem]"
           >
@@ -89,7 +92,7 @@ const DestinationSidebar = ({ onDestinationClick }: DestinationSidebarProps) => 
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 

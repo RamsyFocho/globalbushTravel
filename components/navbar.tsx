@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu, Plane, User, LogIn } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ThemeToggle } from "@/components/theme-toggle"
+import CurrencyDropdown from "@/components/CurrencyDropdown";
 import { cn } from "@/lib/utils"
 
 export function Navbar() {
@@ -60,6 +61,7 @@ export function Navbar() {
           {/* User Menu & Theme Toggle */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
+            <CurrencyDropdown />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="hover:bg-grassland-50 dark:hover:bg-grassland-900">
