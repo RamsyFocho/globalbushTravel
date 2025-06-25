@@ -25,7 +25,7 @@ interface FlightDeal {
   country: string;
   city: string;
   price: string;
-  image: any;
+  image: any; // Using 'any' for imported images
 }
 
 const flightDeals: FlightDeal[] = [
@@ -96,7 +96,7 @@ const flightDeals: FlightDeal[] = [
 
 interface PopularDestination {
   name: string;
-  image: any;
+  image: any; // Using 'any' for imported images
 }
 
 const popularDestinations: PopularDestination[] = [
@@ -110,10 +110,14 @@ const popularDestinations: PopularDestination[] = [
 export function FeaturedDestinations() {
   const [[page, direction], setPage] = useState<[number, number]>([0, 0]);
   const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Adjust items per page and mobile detection based on screen size
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 640) {
+      const mobile = window.innerWidth <= 640;
+      setIsMobile(mobile);
+      if (mobile) {
         setItemsPerPage(1);
       } else if (window.innerWidth < 1024) {
         setItemsPerPage(2);
@@ -122,7 +126,7 @@ export function FeaturedDestinations() {
       }
     };
 
-    handleResize();
+    handleResize(); // Set initial value
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -163,7 +167,7 @@ export function FeaturedDestinations() {
   return (
     <section className="py-8 md:py-12 bg-white">
       <div className="container mx-auto px-4 sm:px-6">
-        {/* Flight Deals Section  just modified to be more responsive*/}
+        {/* Flight Deals Section */}
         <div className="text-center mb-8 md:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
             Our best flight deals from Cameroon
@@ -204,7 +208,7 @@ export function FeaturedDestinations() {
                   .map((deal) => (
                     <motion.div
                       key={deal.id}
-                      whileHover={{ scale: window.innerWidth > 640 ? 1.03 : 1 }}
+                      whileHover={{ scale: isMobile ? 1 : 1.03 }}
                       transition={{
                         type: "spring",
                         stiffness: 400,
@@ -270,14 +274,15 @@ export function FeaturedDestinations() {
           </Button>
         </div>
 
-        {/* "Where will you go?" Section  by zidane*/}
+        {/* "Where will you go?" Section */}
         <div className="mt-12 md:mt-20">
+          {/* Heading Section - Now above both map and destinations */}
           <div className="text-center mb-6 md:mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               Where will you go?
             </h2>
           </div>
-          {/*end of it Flight Deals Section  just modified to be more responsive*/}
+
           <div className="flex flex-col lg:flex-row gap-6 md:gap-8 relative">
             {/* Map Section - Left Side */}
             <div className="lg:w-1/2 h-[300px] sm:h-[400px] md:h-[500px] bg-gray-100 rounded-xl overflow-hidden">
@@ -288,6 +293,7 @@ export function FeaturedDestinations() {
                 height={600}
                 className="object-cover w-full h-full"
               />
+              {/* "From Douala" positioned at bottom of map */}
               <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/90 px-2 py-1 sm:px-3 sm:py-2 rounded-lg">
                 <p className="text-xs sm:text-sm text-gray-700 font-medium">
                   From Douala
@@ -297,6 +303,7 @@ export function FeaturedDestinations() {
 
             {/* Destinations Grid - Right Side */}
             <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 relative">
+              {/* "Explore destinations" link positioned absolutely over images */}
               <Link
                 href="/destinations"
                 className="absolute -top-7 right-0 text-sm sm:text-base text-purple-600 hover:text-purple-800 font-medium inline-flex items-center z-10"
@@ -329,7 +336,7 @@ export function FeaturedDestinations() {
               ].map((destination) => (
                 <motion.div
                   key={destination.category}
-                  whileHover={{ y: window.innerWidth > 640 ? -5 : 0 }}
+                  whileHover={{ y: isMobile ? 0 : -5 }}
                   className="relative h-40 sm:h-48 md:h-56 rounded-lg overflow-hidden group"
                 >
                   <Image
@@ -352,7 +359,6 @@ export function FeaturedDestinations() {
             </div>
           </div>
         </div>
-        {/* "Where will you go?" Section  by zidane end's here*/}
       </div>
     </section>
   );
