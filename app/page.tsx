@@ -2,6 +2,7 @@
 import { HeroSection } from "@/components/hero-section"
 import { SearchTabs } from "@/components/search-tabs"
 import { FeaturedDestinations } from "@/components/featured-destinations"
+import AffiliationsSection from "@/components/AffiliationsSection"
 import dynamic from 'next/dynamic';
 
 const TravelExplorer = dynamic(() => import('@/components/destinationsFeature/TravelExplorer'), {
@@ -12,6 +13,7 @@ import { TestimonialsSection } from "@/components/testimonials-section"
 import { StructuredData, organizationSchema } from "@/components/structured-data"
 import { generateMetadata, seoPages } from "@/lib/seo/metadata"
 import TravelOffersSection from "@/components/OfferCard/TravelOffersSection"
+import GetAppSection from "@/components/GetAppSection"
 
 const homePageSchema = {
   "@context": "https://schema.org",
@@ -42,6 +44,8 @@ export default function HomePage() {
         <TravelOffersSection/>
         <TravelExplorer/>
         <WhyChooseUs />
+        <AffiliationsSection/>
+        <GetAppSection/>
         <TestimonialsSection />
       </div>
     </>

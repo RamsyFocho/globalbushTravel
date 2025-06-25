@@ -170,11 +170,11 @@ export function FeaturedDestinations() {
         {/* Flight Deals Section */}
         <div className="text-center mb-8 md:mb-10">
           <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">
-            Our best flight deals from Cameroon
+          Explore Hotel in Trending Destinations
           </h2>
-          <p className="text-sm sm:text-base text-gray-600">
+          {/* <p className="text-sm sm:text-base text-gray-600">
             The lowest fares we've found this week
-          </p>
+          </p> */}
         </div>
 
         <div className="relative h-[22rem] sm:h-[28rem] mb-12 md:mb-20">
@@ -273,92 +273,7 @@ export function FeaturedDestinations() {
             <Link href="/flights">View All Flight Deals</Link>
           </Button>
         </div>
-
-        {/* "Where will you go?" Section */}
-        <div className="mt-12 md:mt-20">
-          {/* Heading Section - Now above both map and destinations */}
-          <div className="text-center mb-6 md:mb-8">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
-              Where will you go?
-            </h2>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-6 md:gap-8 relative">
-            {/* Map Section - Left Side */}
-            <div className="lg:w-1/2 h-[300px] sm:h-[400px] md:h-[500px] bg-gray-100 rounded-xl overflow-hidden">
-              <Image
-                src="/sample-map.jpg"
-                alt="Travel destinations map"
-                width={800}
-                height={600}
-                className="object-cover w-full h-full"
-              />
-              {/* "From Douala" positioned at bottom of map */}
-              <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-white/90 px-2 py-1 sm:px-3 sm:py-2 rounded-lg">
-                <p className="text-xs sm:text-sm text-gray-700 font-medium">
-                  From Douala
-                </p>
-              </div>
-            </div>
-
-            {/* Destinations Grid - Right Side */}
-            <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 relative">
-              {/* "Explore destinations" link positioned absolutely over images */}
-              <Link
-                href="/destinations"
-                className="absolute -top-7 right-0 text-sm sm:text-base text-purple-600 hover:text-purple-800 font-medium inline-flex items-center z-10"
-              >
-                Explore destinations{" "}
-                <ChevronRight className="ml-1 h-4 w-4 sm:h-5 sm:w-5" />
-              </Link>
-
-              {[
-                {
-                  category: "Romantic Escapes",
-                  price: "M1,170,600",
-                  image: img10,
-                },
-                {
-                  category: "Family Friendly",
-                  price: "M1,643,570",
-                  image: img11,
-                },
-                {
-                  category: "Beautiful Beaches",
-                  price: "M1,817,760",
-                  image: img12,
-                },
-                {
-                  category: "African Getaways",
-                  price: "M1,477,040",
-                  image: img13,
-                },
-              ].map((destination) => (
-                <motion.div
-                  key={destination.category}
-                  whileHover={{ y: isMobile ? 0 : -5 }}
-                  className="relative h-40 sm:h-48 md:h-56 rounded-lg overflow-hidden group"
-                >
-                  <Image
-                    src={destination.image}
-                    alt={destination.category}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-3 sm:p-4">
-                    <h3 className="text-white font-bold text-base sm:text-lg mb-1">
-                      {destination.category}
-                    </h3>
-                    <p className="text-purple-300 font-semibold text-xs sm:text-sm md:text-base">
-                      from {destination.price}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
   );
