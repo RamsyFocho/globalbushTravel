@@ -41,16 +41,16 @@ export function Navbar() {
           <Link href="/" className="flex items-center space-x-2">
             {/* <Plane className="h-8 w-8 text-grassland-600" /> */}
             <Image
-              src="/globalbushLogo.ico"
+              src="/logo.png"
               alt="Global Bush Travel logo"
               width={64}
               height={64}
             />
-            <span className="flex flex-col gap-[0.1rem]">
-              <span className="text-xl font-bold text-purple-900 dark:text-white">
+            <span className="flex flex-col gap-[0.1rem] max-lg:hidden max-md:block">
+              <span className="text-xl font-bold text-purple-900 dark:text-white max-lg:text-md line-clamp-1">
                 Global Bush Travel
               </span>
-              <span className="text-sm font-serif text-gray-900 dark:text-white">
+              <span className="text-sm font-serif text-gray-900 dark:text-white max-lg:text-sm line-clamp-1">
                 Travel and Tourism Company
               </span>
 
