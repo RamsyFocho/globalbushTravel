@@ -31,19 +31,19 @@ export default function GetAppSection() {
         {/* Right Content */}
         <div className="flex flex-col items-center gap-4">
           <Image
-            src="/images/google-play-badge.png"
+            src="/svg/play-store.svg"
             alt="Get it on Google Play"
             width={160}
             height={48}
           />
           <Image
-            src="/images/app-store-badge.png"
+            src="/svg/app-store.svg"
             alt="Download on the App Store"
             width={160}
             height={48}
           />
           <Image
-            src="/images/qr-code-placeholder.png"
+            src="/images/scan.png"
             alt="QR Code"
             width={100}
             height={100}

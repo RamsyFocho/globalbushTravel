@@ -4,9 +4,9 @@ import React, {
   forwardRef,
   useImperativeHandle
 } from "react";
-import { useCurrency } from "@/context/CurrencyContext";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useCurrency } from '@/context/CurrencyContext';
 
 // Mock destination data with prices (ready for Duffel API integration)
 const mockDestinations = [
@@ -118,20 +118,14 @@ interface InteractiveMapProps {
 
 const InteractiveMap = forwardRef<InteractiveMapRef, InteractiveMapProps>(
   ({ onDestinationClick }, ref) => {
-    const { format } = useCurrency();
-
-    const formatPrice = async (price: number) => {
-      const formattedPrice = await format(price, "XAF");
-      return formattedPrice;
-    };
-
+    const { formatCurrency } = useCurrency();
     const mapRef = useRef<HTMLDivElement>(null);
     const mapInstance = useRef<L.Map | null>(null);
     const markersRef = useRef<L.Marker[]>([]);
     const specialMarkerRef = useRef<L.Marker | null>(null);
 
     useImperativeHandle(ref, () => ({
-      highlightDestination: async (destinationId: number) => {
+      highlightDestination: (destinationId: number) => {
         const destination = mockDestinations.find(
           (d) => d.id === destinationId
         );
@@ -146,7 +140,7 @@ const InteractiveMap = forwardRef<InteractiveMapRef, InteractiveMapProps>(
           html: `
             <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
               <div style="background: #ef4444; color: white; padding: 4px 12px; border-radius: 6px; font-weight: 700; font-size: 13px; box-shadow: 0 2px 8px rgba(239,68,68,0.3); border: 2px solid white;">
-                ${await formatPrice(destination.price)}
+                ${formatCurrency(destination.price, 'XAF')}
               </div>
               <svg width="18" height="10" viewBox="0 0 18 10" style="display:block; margin-top:-2px;" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="9,10 0,0 18,0" fill="#ef4444" />
@@ -175,14 +169,14 @@ const InteractiveMap = forwardRef<InteractiveMapRef, InteractiveMapProps>(
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(mapInstance.current);
       const group = new L.FeatureGroup();
-      mockDestinations.forEach(async (destination) => {
+      mockDestinations.forEach((destination) => {
         // Rectangular marker with pointer (arrow) at the bottom center
         const priceIcon = L.divIcon({
           className: "custom-price-marker",
           html: `
             <div style="position: relative; display: flex; flex-direction: column; align-items: center;">
               <div style="background: #0891b2; color: white; padding: 4px 12px; border-radius: 6px; font-weight: 700; font-size: 13px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white;">
-                ${await formatPrice(destination.price)}
+                ${formatCurrency(destination.price, 'XAF')}
               </div>
               <svg width="18" height="10" viewBox="0 0 18 10" style="display:block; margin-top:-2px;" xmlns="http://www.w3.org/2000/svg">
                 <polygon points="9,10 0,0 18,0" fill="#0891b2" />
@@ -205,7 +199,7 @@ const InteractiveMap = forwardRef<InteractiveMapRef, InteractiveMapProps>(
           }</h3>
           <p style="color: #666; margin: 0 0 8px 0;">${destination.country}</p>
           <p style="color: #0891b2; font-weight: bold; margin: 0 0 8px 0; width:full">
-            from ${await formatPrice(destination.price)}
+            from ${formatCurrency(destination.price, 'XAF')}
           </p>
           <button style="
             margin-top: 8px;
@@ -239,7 +233,7 @@ const InteractiveMap = forwardRef<InteractiveMapRef, InteractiveMapProps>(
         markersRef.current = [];
         specialMarkerRef.current = null;
       };
-    }, [onDestinationClick]);
+    }, [onDestinationClick, formatCurrency]);
 
     return (
       <div className="h-96 md:h-[500px] w-full relative transition-all duration-500">

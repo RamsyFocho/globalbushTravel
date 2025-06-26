@@ -5,8 +5,8 @@ import React from 'react';
 // Placeholder images are used here. Replace `src` with your actual logo paths.
 const affiliations = [
   { name: 'ASTA - American Society of Travel Advisors', src: 'https://logodix.com/logo/2033692.png', alt: 'ASTA Logo' },
-  { name: 'Africa Tour Operators', src: 'https://www.africatouroperators.org/wp-content/uploads/2019/07/ATO-Logo-Colour-e1562082728881.png', alt: 'Africa Tour Operators Logo' },
-  { name: 'Travelife Partner', src: 'https://sustainability.travel/wp-content/uploads/2020/09/travelife-logo.png', alt: 'Travelife Partner Logo' },
+  { name: 'Africa Tour Operators', src: '/images/africa-in-one-country-1-1-1.jpg', alt: 'Africa Tour Operators Logo' },
+  { name: 'Travelife Partner', src: '/images/pcma-1-1.jpg', alt: 'Travelife Partner Logo' },
   { name: 'TripAdvisor', src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Tripadvisor_logo.svg/2560px-Tripadvisor_logo.svg.png', alt: 'TripAdvisor Logo' },
   { name: 'ATA - Africa Travel Association', src: 'https://pbs.twimg.com/profile_images/563364969/ata-logo-sample_400x400.jpg', alt: 'ATA Logo' },
   { name: 'SKAL International', src: 'https://skaldfw.org/wp-content/uploads/2017/09/skal-international-logo-e1505315802188.png', alt: 'SKAL International Logo' },
