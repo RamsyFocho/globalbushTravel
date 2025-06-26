@@ -37,9 +37,7 @@ export default function HomePage() {
       <StructuredData data={homePageSchema} />
       <div className="flex flex-col">
         <HeroSection />
-        <div className="container mx-auto px-4 -mt-20 relative z-10">
-          <SearchTabs />
-        </div>
+        
         <FeaturedDestinations />
         <TravelOffersSection/>
         <TravelExplorer/>

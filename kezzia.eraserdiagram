@@ -1,0 +1,60 @@
+title Data Validation and Verification with React Hook Form and Zod
+direction right
+
+// Groups and nodes
+User Interaction [color: lightblue, icon: user] {
+  Start User Input [shape: oval, color: lightblue, icon: edit]
+  User Enters Data [icon: edit-3]
+  Field Change or Form Submit [shape: diamond, color: blue, icon: send]
+}
+
+Form Handling [color: blue, icon: layout] {
+  Register Inputs with React Hook Form [icon: check-square]
+  (Optional) Attach Zod Schema Resolver [icon: zap]
+}
+
+Validation [color: orange, icon: shield-check] {
+  "Validate with Built-in Rules" [icon: check-circle, color: orange]
+  (Optional) Validate with Zod Schema [icon: zap, color: orange]
+  Validation Result [shape: diamond, color: orange, icon: alert-circle]
+}
+
+Error Handling [color: red, icon: alert-triangle] {
+  Show Validation Errors to User [icon: alert-triangle, color: red]
+  User Corrects Data [icon: edit-3, color: red]
+}
+
+Submission [color: green, icon: send] {
+  Submit Data to Server [icon: upload-cloud, color: green]
+  "(Optional) Server-side Validation" [icon: server, color: green]
+  Server Validation Result [shape: diamond, color: green, icon: check-circle]
+  Show Server Errors to User [icon: alert-triangle, color: red]
+  Success [shape: oval, color: lightgreen, icon: check]
+}
+
+// Relationships
+Start User Input > User Enters Data
+User Enters Data > Field Change or Form Submit
+Field Change or Form Submit > Register Inputs with React Hook Form
+Register Inputs with React Hook Form > (Optional) Attach Zod Schema Resolver
+Register Inputs with React Hook Form > "Validate with Built-in Rules"
+(Optional) Attach Zod Schema Resolver > (Optional) Validate with Zod Schema
+"Validate with Built-in Rules" > Validation Result
+(Optional) Validate with Zod Schema > Validation Result
+
+Validation Result > Show Validation Errors to User: Validation Fails
+Show Validation Errors to User > User Corrects Data
+
+Validation Result > Submit Data to Server: Validation Succeeds
+
+Submit Data to Server > "(Optional) Server-side Validation"
+"(Optional) Server-side Validation" > Server Validation Result
+"(Optional) Server-side Validation" > Success: Validation Succeeds
+
+Server Validation Result > Show Server Errors to User: Validation Fails
+Server Validation Result > Success: Validation Succeeds
+
+Submit Data to Server > Success: No Server Validation
+User Enters Data < User Corrects Data
+User Corrects Data < Show Server Errors to User
+
