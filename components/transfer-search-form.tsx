@@ -86,7 +86,7 @@ export function TransferSearchForm() {
       </div>
 
       {/* Search Button */}
-      <Button size="lg" className="w-full md:w-auto bg-grassland-600 hover:bg-grassland-700">
+      <Button size="lg" className="w-full md:w-auto bg-purple-600 hover:bg-purple-700">
         <Search className="mr-2 h-5 w-5" />
         Search Transfers
       </Button>

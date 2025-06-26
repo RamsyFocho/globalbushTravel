@@ -91,17 +91,17 @@ export function PassengerSelector({ value, onChange, className }: PassengerSelec
         <Button
           variant="outline"
           size="icon"
-          className="h-8 w-8 rounded-full border-grassland-300 hover:bg-grassland-50 dark:border-grassland-600 dark:hover:bg-grassland-900 dark:text-gray-100"
+          className="h-8 w-8 rounded-full border-purple-300 hover:bg-purple-50 dark:border-purple-600 dark:hover:bg-purple-900 dark:text-gray-100"
           onClick={() => updatePassengers(type, false)}
           disabled={count <= min}
         >
           <Minus className="h-4 w-4" />
         </Button>
-        <span className="w-8 text-center font-medium text-grassland-600 dark:text-grassland-400">{count}</span>
+        <span className="w-8 text-center font-medium text-purple-600 dark:text-purple-400">{count}</span>
         <Button
           variant="outline"
           size="icon"
-          className="h-8 w-8 rounded-full border-grassland-300 hover:bg-grassland-50 dark:border-grassland-600 dark:hover:bg-grassland-900 dark:text-gray-100"
+          className="h-8 w-8 rounded-full border-purple-300 hover:bg-purple-50 dark:border-purple-600 dark:hover:bg-purple-900 dark:text-gray-100"
           onClick={() => updatePassengers(type, true)}
           disabled={count >= max || getTotalPassengers() >= 9}
         >
@@ -118,9 +118,9 @@ export function PassengerSelector({ value, onChange, className }: PassengerSelec
         <PopoverTrigger asChild>
           <Button
             variant="outline"
-            className="w-full justify-start text-left font-normal h-12 px-4 border-gray-300 dark:border-gray-600 hover:border-grassland-400 dark:hover:border-grassland-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            className="w-full justify-start text-left font-normal h-12 px-4 border-gray-300 dark:border-gray-600 hover:border-purple-400 dark:hover:border-purple-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           >
-            <Users className="mr-3 h-4 w-4 text-grassland-600 dark:text-grassland-400" />
+            <Users className="mr-3 h-4 w-4 text-purple-600 dark:text-purple-400" />
             <span>{getPassengerText()}</span>
           </Button>
         </PopoverTrigger>
@@ -163,7 +163,7 @@ export function PassengerSelector({ value, onChange, className }: PassengerSelec
                 Total number of passengers must be between 1 and 9
               </p>
               <Button
-                className="w-full bg-grassland-600 hover:bg-grassland-700 text-white"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
                 onClick={() => setIsOpen(false)}
               >
                 Apply

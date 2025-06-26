@@ -15,7 +15,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     return (
-      <Button variant="outline" size="icon" className="border-grassland-200 hover:bg-grassland-50">
+      <Button variant="outline" size="icon" className="border-purple-200 hover:bg-purple-50">
         <Sun className="h-[1.2rem] w-[1.2rem]" />
         <span className="sr-only">Toggle theme</span>
       </Button>
@@ -28,7 +28,7 @@ export function ThemeToggle() {
         <Button
           variant="outline"
           size="icon"
-          className="border-grassland-200 hover:bg-grassland-50 dark:border-grassland-700 dark:hover:bg-grassland-900 bg-white dark:bg-gray-800"
+          className="border-purple-200 hover:bg-purple-50 dark:border-purple-700 dark:hover:bg-purple-900 bg-white dark:bg-gray-800"
         >
           <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-gray-900 dark:text-gray-100" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-gray-900 dark:text-gray-100" />
