@@ -39,7 +39,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            {/* <Plane className="h-8 w-8 text-grassland-600" /> */}
+            {/* <Plane className="h-8 w-8 text-purple-600" /> */}
             <Image
               src="/logo.png"
               alt="Global Bush Travel logo"
@@ -66,13 +66,13 @@ export function Navbar() {
                 className={cn(
                   "font-medium transition-colors relative py-2",
                   isActiveLink(item.href)
-                    ? "text-grassland-600 dark:text-grassland-400"
-                    : "text-gray-700 dark:text-gray-300 hover:text-grassland-600 dark:hover:text-grassland-400"
+                    ? "text-purple-600 dark:text-purple-400"
+                    : "text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400"
                 )}
               >
                 {item.label}
                 {isActiveLink(item.href) && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-grassland-600 dark:bg-grassland-400 rounded-full" />
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-600 dark:bg-purple-400 rounded-full" />
                 )}
               </Link>
             ))}
@@ -87,7 +87,7 @@ export function Navbar() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="hover:bg-grassland-50 dark:hover:bg-grassland-900"
+                  className="hover:bg-purple-50 dark:hover:bg-purple-900"
                 >
                   <User className="h-4 w-4 mr-2" />
                   Account
@@ -131,8 +131,8 @@ export function Navbar() {
                     className={cn(
                       "font-medium py-2 px-3 rounded-md transition-colors",
                       isActiveLink(item.href)
-                        ? "text-grassland-600 bg-grassland-50 dark:text-grassland-400 dark:bg-grassland-900"
-                        : "text-gray-700 dark:text-gray-300 hover:text-grassland-600 hover:bg-grassland-50 dark:hover:text-grassland-400 dark:hover:bg-grassland-900"
+                        ? "text-purple-600 bg-purple-50 dark:text-purple-400 dark:bg-purple-900"
+                        : "text-gray-700 dark:text-gray-300 hover:text-purple-600 hover:bg-purple-50 dark:hover:text-purple-400 dark:hover:bg-purple-900"
                     )}
                     onClick={() => setIsOpen(false)}
                   >
@@ -142,14 +142,14 @@ export function Navbar() {
                 <div className="border-t pt-4 space-y-2">
                   <Link
                     href="/login"
-                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-grassland-600 dark:hover:text-grassland-400 py-2 px-3 rounded-md hover:bg-grassland-50 dark:hover:bg-grassland-900"
+                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 py-2 px-3 rounded-md hover:bg-purple-50 dark:hover:bg-purple-900"
                   >
                     <LogIn className="h-4 w-4" />
                     <span>Login</span>
                   </Link>
                   <Link
                     href="/register"
-                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-grassland-600 dark:hover:text-grassland-400 py-2 px-3 rounded-md hover:bg-grassland-50 dark:hover:bg-grassland-900"
+                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 py-2 px-3 rounded-md hover:bg-purple-50 dark:hover:bg-purple-900"
                   >
                     <User className="h-4 w-4" />
                     <span>Sign Up</span>

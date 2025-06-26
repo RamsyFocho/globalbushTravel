@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Plane, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
@@ -8,10 +9,25 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <Plane className="h-8 w-8 text-grassland-400" />
-              <span className="text-xl font-bold">Global Bush Travel</span>
-            </div>
+             <Link href="/" className="flex items-center space-x-2">
+            {/* <Plane className="h-8 w-8 text-purple-600" /> */}
+            <Image
+              src="/logo.png"
+              alt="Global Bush Travel logo"
+              width={64}
+              height={64}
+            />
+            <span className="flex flex-col gap-[0.1rem] max-lg:hidden max-md:block">
+              <span className="text-xl font-bold text-purple-900 dark:text-white max-lg:text-md line-clamp-1">
+                Global Bush Travel
+              </span>
+              <span className="text-sm font-serif text-gray-900 dark:text-white max-lg:text-sm line-clamp-1">
+                Travel and Tourism Company
+              </span>
+
+            </span>
+          </Link>
+
             <p className="text-gray-300 dark:text-gray-400">
               Your trusted travel partner for flights, hotels, packages, and more. Making your travel dreams come true
               since 2020.

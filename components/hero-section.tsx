@@ -12,7 +12,7 @@ export function HeroSection() {
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
-      className="hero-section relative min-h-[600px] px-20 py-10 max-lg:px-10 max-lg:py-5 flex items-center justify-center overflow-hidden bg-green-700"
+      className="hero-section relative min-h-[600px] px-20 py-10 max-lg:px-10 max-lg:py-5 flex items-center justify-center overflow-hidden bg-purple-700"
     >
       <SearchTabs />
     </section>
