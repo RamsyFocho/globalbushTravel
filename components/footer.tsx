@@ -33,16 +33,16 @@ export function Footer() {
               since 2020.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-grassland-400 transition-colors">
+              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-purple-400 transition-colors">
                 <Facebook className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-grassland-400 transition-colors">
+              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-purple-400 transition-colors">
                 <Twitter className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-grassland-400 transition-colors">
+              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-purple-400 transition-colors">
                 <Instagram className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-grassland-400 transition-colors">
+              <Link href="#" className="text-gray-300 dark:text-gray-400 hover:text-purple-400 transition-colors">
                 <Linkedin className="h-5 w-5" />
               </Link>
             </div>

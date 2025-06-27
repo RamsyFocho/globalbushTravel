@@ -140,7 +140,7 @@ export function EnhancedPackageResults() {
                 <span className="text-xs font-medium">{pkg.rating}</span>
               </div>
               <div className="absolute top-4 left-4">
-                <Badge className="bg-grassland-600">{pkg.category}</Badge>
+                <Badge className="bg-purple-600">{pkg.category}</Badge>
               </div>
             </div>
 
@@ -170,7 +170,7 @@ export function EnhancedPackageResults() {
                   <Badge
                     key={inclusion}
                     variant="secondary"
-                    className="text-xs bg-grassland-100 text-grassland-700 dark:bg-grassland-900 dark:text-grassland-300"
+                    className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300"
                   >
                     {inclusion}
                   </Badge>
@@ -178,7 +178,7 @@ export function EnhancedPackageResults() {
                 {pkg.inclusions.length > 3 && (
                   <Badge
                     variant="secondary"
-                    className="text-xs bg-grassland-100 text-grassland-700 dark:bg-grassland-900 dark:text-grassland-300"
+                    className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300"
                   >
                     +{pkg.inclusions.length - 3} more
                   </Badge>
@@ -187,12 +187,12 @@ export function EnhancedPackageResults() {
 
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="font-bold text-grassland-600 dark:text-grassland-400 text-xl">${pkg.price}</span>
+                  <span className="font-bold text-purple-600 dark:text-purple-400 text-xl">${pkg.price}</span>
                   <p className="text-xs text-gray-500 dark:text-gray-400">per person</p>
                 </div>
                 <Button
                   size="sm"
-                  className="bg-grassland-600 hover:bg-grassland-700"
+                  className="bg-purple-600 hover:bg-purple-700"
                   onClick={() => handleBookPackage(pkg)}
                 >
                   Book Now

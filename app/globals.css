@@ -368,11 +368,11 @@
 }
 
 /* Button hover states in dark mode */
-.dark .hover\:bg-grassland-50:hover {
+.dark .hover\:bg-purple-50:hover {
   background-color: rgb(20 83 45);
 }
 
-.dark .hover\:bg-grassland-900:hover {
+.dark .hover\:bg-purple-900:hover {
   background-color: rgb(20 83 45);
 }
 

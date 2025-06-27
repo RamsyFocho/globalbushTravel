@@ -61,9 +61,9 @@ export default function DemoPage() {
               Use the theme toggle in the navigation bar to switch between light and dark modes. All components are
               designed to work seamlessly in both themes.
             </p>
-            <div className="p-4 bg-grassland-50 dark:bg-grassland-900 rounded-lg">
-              <p className="text-grassland-800 dark:text-grassland-200">
-                This box demonstrates how the grassland theme colors adapt to both light and dark modes.
+            <div className="p-4 bg-purple-50 dark:bg-purple-900 rounded-lg">
+              <p className="text-purple-800 dark:text-purple-200">
+                This box demonstrates how the purple theme colors adapt to both light and dark modes.
               </p>
             </div>
           </CardContent>

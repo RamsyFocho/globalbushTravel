@@ -148,16 +148,16 @@ export function HotelSearchResults() {
               <div className="lg:col-span-3 p-6 border-l bg-gray-50 flex flex-col justify-between">
                 <div>
                   <div className="text-right mb-4">
-                    <p className="text-2xl font-bold text-grassland-600">${hotel.price}</p>
+                    <p className="text-2xl font-bold text-purple-600">${hotel.price}</p>
                     <p className="text-sm text-gray-500">per night</p>
                     <p className="text-xs text-gray-500">includes taxes & fees</p>
                   </div>
 
                   <div className="space-y-2">
-                    <Button className="w-full bg-grassland-600 hover:bg-grassland-700">Book Now</Button>
+                    <Button className="w-full bg-purple-600 hover:bg-purple-700">Book Now</Button>
                     <Button
                       variant="outline"
-                      className="w-full border-grassland-600 text-grassland-600 hover:bg-grassland-600 hover:text-white"
+                      className="w-full border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white"
                     >
                       View Details
                     </Button>

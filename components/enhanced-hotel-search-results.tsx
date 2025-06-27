@@ -235,7 +235,7 @@ export function EnhancedHotelSearchResults({ filters = {} }: EnhancedHotelSearch
                       )
                     })}
                     {hotel.amenities.length > 4 && (
-                      <span className="text-xs text-grassland-600 dark:text-grassland-400">
+                      <span className="text-xs text-purple-600 dark:text-purple-400">
                         +{hotel.amenities.length - 4} more
                       </span>
                     )}
@@ -246,21 +246,21 @@ export function EnhancedHotelSearchResults({ filters = {} }: EnhancedHotelSearch
                 <div className="lg:col-span-3 p-6 border-l bg-gray-50 dark:bg-gray-800 flex flex-col justify-between">
                   <div>
                     <div className="text-right mb-4">
-                      <p className="text-2xl font-bold text-grassland-600 dark:text-grassland-400">${hotel.price}</p>
+                      <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">${hotel.price}</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">per night</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">includes taxes & fees</p>
                     </div>
 
                     <div className="space-y-2">
                       <Button
-                        className="w-full bg-grassland-600 hover:bg-grassland-700"
+                        className="w-full bg-purple-600 hover:bg-purple-700"
                         onClick={() => handleBookHotel(hotel)}
                       >
                         Book Now
                       </Button>
                       <Button
                         variant="outline"
-                        className="w-full border-grassland-600 text-grassland-600 hover:bg-grassland-600 hover:text-white dark:border-grassland-400 dark:text-grassland-400"
+                        className="w-full border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white dark:border-purple-400 dark:text-purple-400"
                       >
                         View Details
                       </Button>

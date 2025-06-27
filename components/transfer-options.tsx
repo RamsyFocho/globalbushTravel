@@ -41,8 +41,8 @@ export function TransferOptions() {
           <Card key={option.id} className="hover:shadow-lg transition-shadow">
             <CardContent className="p-6">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2 bg-grassland-100 rounded-full">
-                  <option.icon className="h-6 w-6 text-grassland-600" />
+                <div className="p-2 bg-purple-100 rounded-full">
+                  <option.icon className="h-6 w-6 text-purple-600" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">{option.type}</h3>
@@ -63,7 +63,7 @@ export function TransferOptions() {
 
               <div className="space-y-2 mb-6">
                 {option.features.map((feature) => (
-                  <Badge key={feature} variant="secondary" className="mr-1 mb-1 bg-grassland-100 text-grassland-700">
+                  <Badge key={feature} variant="secondary" className="mr-1 mb-1 bg-purple-100 text-purple-700">
                     {feature}
                   </Badge>
                 ))}
@@ -71,10 +71,10 @@ export function TransferOptions() {
 
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-2xl font-bold text-grassland-600">${option.price}</span>
+                  <span className="text-2xl font-bold text-purple-600">${option.price}</span>
                   <p className="text-sm text-gray-500">per trip</p>
                 </div>
-                <Button className="bg-grassland-600 hover:bg-grassland-700">Book Now</Button>
+                <Button className="bg-purple-600 hover:bg-purple-700">Book Now</Button>
               </div>
             </CardContent>
           </Card>

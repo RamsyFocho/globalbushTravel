@@ -37,7 +37,7 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
     >
       <Link
         href="/"
-        className="flex items-center hover:text-grassland-600 dark:hover:text-grassland-400 transition-colors"
+        className="flex items-center hover:text-purple-600 dark:hover:text-purple-400 transition-colors"
         aria-label="Home"
       >
         <Home className="h-4 w-4" />
@@ -48,13 +48,13 @@ export function Breadcrumb({ items, className = "" }: BreadcrumbProps) {
         <Fragment key={item.href}>
           <ChevronRight className="h-4 w-4 text-gray-400 dark:text-gray-500 flex-shrink-0" />
           {index === breadcrumbItems.length - 1 ? (
-            <span className="font-medium text-grassland-700 dark:text-grassland-300 truncate" aria-current="page">
+            <span className="font-medium text-purple-700 dark:text-purple-300 truncate" aria-current="page">
               {item.label}
             </span>
           ) : (
             <Link
               href={item.href}
-              className="hover:text-grassland-600 dark:hover:text-grassland-400 transition-colors truncate"
+              className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors truncate"
             >
               {item.label}
             </Link>

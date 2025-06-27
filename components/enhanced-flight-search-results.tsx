@@ -10,7 +10,7 @@ import { DataSortFilter } from "@/components/data-sort-filter"
 import { flightSortOptions, sortData } from "@/lib/utils/sorting"
 import { toast } from "react-toastify"
 import { flightService, type FlightOffer } from "@/lib/api/flight-service"
-
+import {useRouter} from "next/navigation";
 interface Flight {
   id: string
   airline: string
@@ -51,6 +51,7 @@ export function EnhancedFlightSearchResults({ filters = {}, searchParams }: Enha
   const [flights, setFlights] = useState<Flight[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter();
 
   // Convert FlightOffer to Flight interface
   const convertFlightOfferToFlight = (offer: FlightOffer): Flight => {
@@ -145,6 +146,11 @@ export function EnhancedFlightSearchResults({ filters = {}, searchParams }: Enha
 
   const handleBookFlight = (flight: Flight) => {
     toast.success(`Flight ${flight.flightNumber} selected! Redirecting to booking...`)
+    router.push(`book/${flight.id}`);
+  }
+  const handleViewFlight = (flight: Flight) => {
+    toast.success(`Flight ${flight.flightNumber} selected! Redirecting to View it...`)
+    router.push(`flights/${flight.id}`);
   }
 
   if (!searchParams?.from || !searchParams?.to) {
@@ -179,7 +185,7 @@ export function EnhancedFlightSearchResults({ filters = {}, searchParams }: Enha
         <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
         <Button 
           onClick={() => window.location.reload()} 
-          className="bg-grassland-600 hover:bg-grassland-700 text-white"
+          className="bg-purple-600 hover:bg-purple-700 text-white"
         >
           Try Again
         </Button>
@@ -291,16 +297,25 @@ export function EnhancedFlightSearchResults({ filters = {}, searchParams }: Enha
                 {/* Price and Book */}
                 <div className="lg:col-span-4 text-right">
                   <div className="mb-2">
-                    <p className="text-2xl font-bold text-grassland-600 dark:text-grassland-400">${flight.price}</p>
+                    <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">${flight.price}</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">per person</p>
                     <p className="text-xs text-gray-500 dark:text-gray-400">{flight.class}</p>
                   </div>
+                  <span className=" flex gap-1 flex-wrap">
+
                   <Button
-                    className="w-full lg:w-auto bg-grassland-600 hover:bg-grassland-700 text-white"
+                    className="w-full lg:w-auto bg-purple-600 hover:bg-purple-700 text-white"
                     onClick={() => handleBookFlight(flight)}
                   >
                     Select Flight
                   </Button>
+                  <Button
+                    className="w-full lg:w-auto bg-purple-600 hover:bg-purple-700 text-white"
+                    onClick={() => handleViewFlight(flight)}
+                  >
+                    View Flight
+                  </Button>
+                    </span>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Free cancellation</p>
                 </div>
               </div>

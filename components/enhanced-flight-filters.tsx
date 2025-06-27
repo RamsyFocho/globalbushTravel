@@ -114,7 +114,7 @@ export function EnhancedFlightFilters({ onFiltersChange, className = "" }: Fligh
           <div className="flex items-center gap-2">
             <Badge
               variant="secondary"
-              className="bg-grassland-100 text-grassland-700 dark:bg-grassland-900 dark:text-grassland-300"
+              className="bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300"
             >
               {getActiveFilterCount()} active
             </Badge>
@@ -137,7 +137,7 @@ export function EnhancedFlightFilters({ onFiltersChange, className = "" }: Fligh
               <span>${priceRange[0]}</span>
               <span>${priceRange[1]}</span>
             </div>
-            <Button size="sm" onClick={applyFilters} className="w-full bg-grassland-600 hover:bg-grassland-700">
+            <Button size="sm" onClick={applyFilters} className="w-full bg-purple-600 hover:bg-purple-700">
               Apply Price Filter
             </Button>
           </div>
@@ -217,7 +217,7 @@ export function EnhancedFlightFilters({ onFiltersChange, className = "" }: Fligh
             <div className="text-center text-sm text-gray-600 dark:text-gray-400">
               Up to {Math.floor(maxDuration[0] / 60)}h {maxDuration[0] % 60}m
             </div>
-            <Button size="sm" onClick={applyFilters} className="w-full bg-grassland-600 hover:bg-grassland-700">
+            <Button size="sm" onClick={applyFilters} className="w-full bg-purple-600 hover:bg-purple-700">
               Apply Duration Filter
             </Button>
           </div>
@@ -236,7 +236,7 @@ export function EnhancedFlightFilters({ onFiltersChange, className = "" }: Fligh
                 key={slot.id}
                 className={`text-center p-3 border rounded cursor-pointer transition-colors ${
                   selectedDepartureTime.includes(slot.id)
-                    ? "border-grassland-600 bg-grassland-50 dark:bg-grassland-900 dark:border-grassland-400"
+                    ? "border-purple-600 bg-purple-50 dark:bg-purple-900 dark:border-purple-400"
                     : "border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
                 }`}
                 onClick={() => {
@@ -254,7 +254,7 @@ export function EnhancedFlightFilters({ onFiltersChange, className = "" }: Fligh
       </Card>
 
       {/* Apply All Filters Button */}
-      <Button onClick={applyFilters} className="w-full bg-grassland-600 hover:bg-grassland-700">
+      <Button onClick={applyFilters} className="w-full bg-purple-600 hover:bg-purple-700">
         Apply All Filters
       </Button>
     </div>

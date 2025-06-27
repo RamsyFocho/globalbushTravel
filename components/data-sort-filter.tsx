@@ -40,15 +40,15 @@ export function DataSortFilter({
 
         {activeFilterCount > 0 && (
           <div className="flex items-center gap-2">
-            <Filter className="h-4 w-4 text-grassland-600 dark:text-grassland-400" />
-            <span className="text-sm text-grassland-600 dark:text-grassland-400">
+            <Filter className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+            <span className="text-sm text-purple-600 dark:text-purple-400">
               {activeFilterCount} filter{activeFilterCount !== 1 ? "s" : ""} applied
             </span>
             <Button
               variant="ghost"
               size="sm"
               onClick={onClearAllFilters}
-              className="h-6 px-2 text-xs hover:bg-grassland-50 dark:hover:bg-grassland-900 text-grassland-600 dark:text-grassland-400"
+              className="h-6 px-2 text-xs hover:bg-purple-50 dark:hover:bg-purple-900 text-purple-600 dark:text-purple-400"
             >
               Clear all
             </Button>

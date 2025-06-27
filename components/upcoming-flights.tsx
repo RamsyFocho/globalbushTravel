@@ -148,7 +148,7 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
         <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
         <Button
           onClick={loadUpcomingFlights}
-          className="bg-grassland-600 hover:bg-grassland-700 text-white"
+          className="bg-purple-600 hover:bg-purple-700 text-white"
         >
           Try Again
         </Button>
@@ -285,7 +285,7 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
 
                     <Button
                       onClick={() => handleBookFlight(flight)}
-                      className="bg-grassland-600 hover:bg-grassland-700 text-white"
+                      className="bg-purple-600 hover:bg-purple-700 text-white"
                     >
                       Book Flight
                     </Button>

@@ -55,12 +55,12 @@ export function PackageCard({ package: pkg }: PackageCardProps) {
 
         <div className="flex flex-wrap gap-1 mb-4">
           {pkg.inclusions.slice(0, 3).map((inclusion) => (
-            <Badge key={inclusion} variant="secondary" className="text-xs bg-grassland-100 text-grassland-700">
+            <Badge key={inclusion} variant="secondary" className="text-xs bg-purple-100 text-purple-700">
               {inclusion}
             </Badge>
           ))}
           {pkg.inclusions.length > 3 && (
-            <Badge variant="secondary" className="text-xs bg-grassland-100 text-grassland-700">
+            <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700">
               +{pkg.inclusions.length - 3} more
             </Badge>
           )}
@@ -68,10 +68,10 @@ export function PackageCard({ package: pkg }: PackageCardProps) {
 
         <div className="flex items-center justify-between">
           <div>
-            <span className="font-bold text-grassland-600 text-xl">${pkg.price}</span>
+            <span className="font-bold text-purple-600 text-xl">${pkg.price}</span>
             <p className="text-xs text-gray-500">per person</p>
           </div>
-          <Button size="sm" className="bg-grassland-600 hover:bg-grassland-700" asChild>
+          <Button size="sm" className="bg-purple-600 hover:bg-purple-700" asChild>
             <Link href={`/packages/${pkg.id}`}>View Details</Link>
           </Button>
         </div>

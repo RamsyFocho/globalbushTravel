@@ -103,7 +103,7 @@ export function EnhancedHotelFilters({ onFiltersChange, className = "" }: HotelF
           <div className="flex items-center gap-2">
             <Badge
               variant="secondary"
-              className="bg-grassland-100 text-grassland-700 dark:bg-grassland-900 dark:text-grassland-300"
+              className="bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300"
             >
               {getActiveFilterCount()} active
             </Badge>
@@ -210,7 +210,7 @@ export function EnhancedHotelFilters({ onFiltersChange, className = "" }: HotelF
       </Card>
 
       {/* Apply Filters Button */}
-      <Button onClick={updateFilters} className="w-full bg-grassland-600 hover:bg-grassland-700">
+      <Button onClick={updateFilters} className="w-full bg-purple-600 hover:bg-purple-700">
         Apply All Filters
       </Button>
     </div>

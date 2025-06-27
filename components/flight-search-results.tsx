@@ -166,11 +166,11 @@ export function FlightSearchResults() {
               {/* Price and Book */}
               <div className="lg:col-span-4 text-right">
                 <div className="mb-2">
-                  <p className="text-2xl font-bold text-grassland-600">${flight.price}</p>
+                  <p className="text-2xl font-bold text-purple-600">${flight.price}</p>
                   <p className="text-xs text-gray-500">per person</p>
                   <p className="text-xs text-gray-500">{flight.class}</p>
                 </div>
-                <Button className="w-full lg:w-auto bg-grassland-600 hover:bg-grassland-700">Select Flight</Button>
+                <Button className="w-full lg:w-auto bg-purple-600 hover:bg-purple-700">Select Flight</Button>
                 <p className="text-xs text-gray-500 mt-1">Free cancellation</p>
               </div>
             </div>

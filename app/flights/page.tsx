@@ -153,7 +153,7 @@ export default function FlightsPage() {
           <Button
             variant="outline"
             onClick={() => setShowSearchForm(!showSearchForm)}
-            className="border-grassland-600 text-grassland-600 hover:bg-grassland-50 dark:border-grassland-400 dark:text-grassland-400 dark:hover:bg-grassland-900"
+            className="border-purple-600 text-purple-600 hover:bg-purple-50 dark:border-purple-400 dark:text-purple-400 dark:hover:bg-purple-900"
           >
             <Search className="h-4 w-4 mr-2" />
             Modify Search
@@ -195,7 +195,7 @@ export default function FlightsPage() {
         /* Upcoming Flights Section */
         <div className="space-y-8">
           <div className="flex items-center gap-2 mb-6">
-            <MapPin className="h-5 w-5 text-grassland-600" />
+            <MapPin className="h-5 w-5 text-purple-600" />
             <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
               Upcoming Flights from {userLocation}
             </h2>

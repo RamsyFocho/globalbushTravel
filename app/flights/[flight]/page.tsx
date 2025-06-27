@@ -76,31 +76,36 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
     setImageError(true);
   };
 
-  const [flightParam, setFlightParam] = useState<string | null>(null);
-
+ 
   const offerId = decodeURIComponent(flight) || "off_123456789";
   console.log(offerId);
 
   useEffect(() => {
-    // if (!flightParam) return;
     const fetchOffer = async () => {
       try {
         const res = await fetch(`/api/flights/offer/${offerId}`);
-        if (!res.ok) throw new Error("Failed to fetch offer");
+        if (!res.ok){
+          setError("Failed to fetch offer");
+         throw new Error("Failed to fetch offer");//TODO: if !res.ok, redirect nback to the flight page
+        }
         const data = await res.json();
+        console.log(data);
         setOffer(data.data ? data.data : data);
-        setLoading(false);
+        // setLoading(false);
       } catch (err) {
-        setOffer(mockFlightOffer);
+        console.error("----> Error: ",err);
+        // setOffer(mockFlightOffer);
         setError("Failed to load flight offer");
         setLoading(false);
       }
     };
     fetchOffer();
-  }, [offerId, flightParam]);
+  }, [offerId]);
 
   // Defensive: fallback for Duffel/Mock structure
   if (!offer) return null;
+  console.log("---------OFFERS-------");
+  console.log(offer);
   const slice = offer.slices ? offer.slices[0] : null;
   const owner = offer.owner || offer.airline || {};
   const conditions = offer.conditions || {};
@@ -319,6 +324,7 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
         {slices.map((slice, i) => (
           <div key={slice.id || i} className="mb-8">
             <div className="font-semibold text-purple-700 mb-2">
+            
               {slice.origin?.iata_code} → {slice.destination?.iata_code} ({slice.origin?.city_name} → {slice.destination?.city_name})
             </div>
             <div className="text-gray-600 text-sm mb-2">Duration: {formatISODuration(slice.duration || slice.duration_minutes)}</div>
@@ -400,6 +406,7 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
   }
 
   if (!offer) return null;
+  setLoading(false);
 
   return (
     <div className="min-h-screen bg-gray-50 font-inter">
@@ -709,7 +716,7 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
                     </span>
                   </div>
                 </div>
-                <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-lg transition-colors duration-200 flex items-center justify-center group mb-3 sm:mb-4 text-sm sm:text-base">
+                <button onClick={()=>{router.push(`book/${offerId}`)}} className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-lg transition-colors duration-200 flex items-center justify-center group mb-3 sm:mb-4 text-sm sm:text-base">
                   <span>Continue to Booking</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
