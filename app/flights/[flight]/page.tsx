@@ -715,7 +715,7 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
                     </span>
                   </div>
                 </div>
-                <button onClick={()=>{router.push(`book/${offerId}`)}} className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-lg transition-colors duration-200 flex items-center justify-center group mb-3 sm:mb-4 text-sm sm:text-base">
+                <button onClick={()=>{router.push(`/book/${offerId}`)}} className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 sm:py-4 px-4 sm:px-6 rounded-lg transition-colors duration-200 flex items-center justify-center group mb-3 sm:mb-4 text-sm sm:text-base">
                   <span>Continue to Booking</span>
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                 </button>
