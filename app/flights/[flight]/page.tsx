@@ -91,7 +91,7 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
         const data = await res.json();
         console.log(data);
         setOffer(data.data ? data.data : data);
-        // setLoading(false);
+        setLoading(false);
       } catch (err) {
         console.error("----> Error: ",err);
         // setOffer(mockFlightOffer);
@@ -406,7 +406,6 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
   }
 
   if (!offer) return null;
-  setLoading(false);
 
   return (
     <div className="min-h-screen bg-gray-50 font-inter">
