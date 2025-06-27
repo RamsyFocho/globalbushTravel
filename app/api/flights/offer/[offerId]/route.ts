@@ -1,28 +1,54 @@
-// /api/flight/offer/[id]/route.ts
-import type { NextApiRequest, NextApiResponse } from 'next';
+// /api/flights/offer/[offerId]/route.ts
+// Next.js App Router API Route (app directory)
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query;
-  console.log(id);
-
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
+export async function GET(
+  req: Request,
+  context: { params: Promise<{ offerId: string }> }
+) {
+  const { offerId } = await context.params;
+  if (!offerId) {
+    return new Response(JSON.stringify({ error: "Missing offerId" }), {
+      status: 400,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
-  if (!id) return res.status(400).json({ error: 'Missing ID' });
-
   try {
-    // Your logic to fetch from Duffel
-    const response = await fetch(`https://api.duffel.com/v1/offer/${id}`, {
+    console.log("Calling for the duffel API");
+    // Use the correct Duffel endpoint and required headers
+    const apiUrl = `https://api.duffel.com/air/offers/${offerId}`;
+    const duffelRes = await fetch(apiUrl, {
       headers: {
-        Authorization: `Bearer ${process.env.DUFFEL_TOKEN}`,
-        'Duffel-Version': 'v1',
+        Authorization: `Bearer ${process.env.DUFFEL_API_KEY}`,
+        "Duffel-Version": "v2",
+        "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
-    res.status(200).json(data);
+    if (!duffelRes.ok) {
+      console.log("response is not OK");
+      const errorBody = await duffelRes.json();
+      return new Response(
+        JSON.stringify({
+          error: "Duffel API error",
+          details: errorBody.errors || errorBody,
+        }),
+        {
+          status: duffelRes.status,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+    const data = await duffelRes.json();
+    console.log(data);
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    return new Response(JSON.stringify({ error: "Server error" }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }

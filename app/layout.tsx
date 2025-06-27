@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CurrencyProvider } from "@/context/CurrencyContext";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,8 +55,8 @@ export const metadata: Metadata = {
     canonical:
       process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com",
   },
-  other: {
-    "google-site-verification": "your-verification-code",
+  other: {    
+    "google-site-verification": "CUphQoizNcggu4344y_uj_j01MeIRAfuya9XjRoZOE0",
     urlTemplate: `${
       process.env.NEXT_PUBLIC_BASE_URL || "https://globalbushtravel.com"
     }/search?q={search_term_string}`,
@@ -69,10 +70,24 @@ export const metadata: Metadata = {
     telephone: false,
   },
   verification: {
-    google: "your-google-verification-code",
+    google: "CUphQoizNcggu4344y_uj_j01MeIRAfuya9XjRoZOE0",
     yandex: "your-yandex-verification-code",
   },
-  generator: "v0.dev",
+  generator: "bitsvalley",
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
 };
 
 export const viewport: Viewport = {

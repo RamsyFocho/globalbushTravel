@@ -1,73 +1,77 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Plane, Wifi, Utensils, Clock, Loader2, MapPin } from "lucide-react"
-import { DataSortFilter } from "@/components/data-sort-filter"
-import { flightSortOptions, sortData } from "@/lib/utils/sorting"
-import { toast } from "react-toastify"
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Plane, Wifi, Utensils, Clock, Loader2, MapPin } from "lucide-react";
+import { DataSortFilter } from "@/components/data-sort-filter";
+import { flightSortOptions, sortData } from "@/lib/utils/sorting";
+import { toast } from "react-toastify";
+import {useRouter} from "next/navigation";
 
 interface Flight {
-  id: string
-  airline: string
-  logo: string
-  flightNumber: string
+  id: string;
+  airline: string;
+  logo: string;
+  flightNumber: string;
   departure: {
-    time: string
-    airport: string
-    city: string
-    date: string
-  }
+    time: string;
+    airport: string;
+    city: string;
+    date: string;
+  };
   arrival: {
-    time: string
-    airport: string
-    city: string
-    date: string
-  }
-  duration: string
-  durationMinutes: number
-  stops: number
-  stopDetails?: string
-  price: number
-  currency: string
-  amenities: string[]
-  baggage: string
-  class: string
-  aircraft?: string
-  carbonEmissions?: number
+    time: string;
+    airport: string;
+    city: string;
+    date: string;
+  };
+  duration: string;
+  durationMinutes: number;
+  stops: number;
+  stopDetails?: string;
+  price: number;
+  currency: string;
+  amenities: string[];
+  baggage: string;
+  class: string;
+  aircraft?: string;
+  carbonEmissions?: number;
 }
 
 interface UpcomingFlightsProps {
-  userLocation: string
+  userLocation: string;
 }
 
 export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
-  const [flights, setFlights] = useState<Flight[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const [currentSort, setCurrentSort] = useState("price-asc")
+  const router = useRouter();
+  const [flights, setFlights] = useState<Flight[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [currentSort, setCurrentSort] = useState("price-asc");
 
   useEffect(() => {
     if (userLocation) {
-      loadUpcomingFlights()
+      loadUpcomingFlights();
     }
-  }, [userLocation])
+  }, [userLocation]);
 
   const loadUpcomingFlights = async () => {
     try {
-      setLoading(true)
-      setError(null)
+      setLoading(true);
+      setError(null);
 
-      const response = await fetch(`/api/flights/upcoming?location=${userLocation}`)
-      
+      const response = await fetch(
+        `/api/flights/upcoming?location=${userLocation}`
+      );
+
       if (!response.ok) {
-        throw new Error("Failed to load upcoming flights")
+        throw new Error("Failed to load upcoming flights");
       }
 
-      const data = await response.json()
-      
+      const data = await response.json();
+
       // Convert FlightOffer to Flight interface
       const convertedFlights = data.flights.map((offer: any) => ({
         id: offer.id,
@@ -77,7 +81,9 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
         departure: offer.departure,
         arrival: offer.arrival,
         duration: offer.duration,
-        durationMinutes: parseInt(offer.duration.split('h')[0]) * 60 + parseInt(offer.duration.split('h')[1]?.split('m')[0] || '0'),
+        durationMinutes:
+          parseInt(offer.duration.split("h")[0]) * 60 +
+          parseInt(offer.duration.split("h")[1]?.split("m")[0] || "0"),
         stops: offer.stops,
         stopDetails: offer.stopDetails,
         price: offer.price,
@@ -87,57 +93,67 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
         class: offer.class,
         aircraft: "Boeing 777",
         carbonEmissions: Math.floor(Math.random() * 500) + 800,
-      }))
+      }));
 
-      setFlights(convertedFlights)
+      setFlights(convertedFlights);
     } catch (err) {
-      console.error("Error loading upcoming flights:", err)
-      setError("Failed to load upcoming flights. Please try again.")
+      console.error("Error loading upcoming flights:", err);
+      setError("Failed to load upcoming flights. Please try again.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
-  const sortedFlights = sortData(flights, flightSortOptions.find(option => option.value === currentSort) || flightSortOptions[0])
+  const sortedFlights = sortData(
+    flights,
+    flightSortOptions.find((option) => option.value === currentSort) ||
+      flightSortOptions[0]
+  );
 
   const handleBookFlight = (flight: Flight) => {
-    toast.success(`Flight ${flight.flightNumber} selected! Redirecting to booking...`)
-  }
+    toast.success(
+      `Flight ${flight.flightNumber} selected! Redirecting to booking...`
+    );
+  };
 
   const handleFilterClear = (filterKey: string) => {
-    console.log("Clear filter:", filterKey)
-  }
+    console.log("Clear filter:", filterKey);
+  };
 
   const handleClearAllFilters = () => {
-    console.log("Clear all filters")
-  }
+    console.log("Clear all filters");
+  };
 
   if (loading) {
     return (
       <div className="text-center py-12">
         <Loader2 className="h-12 w-12 text-gray-400 mx-auto mb-4 animate-spin" />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Loading upcoming flights...</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+          Loading upcoming flights...
+        </h3>
         <p className="text-gray-600 dark:text-gray-400">
           Finding the best flight options from your location.
         </p>
       </div>
-    )
+    );
   }
 
   if (error) {
     return (
       <div className="text-center py-12">
         <Plane className="h-12 w-12 text-red-400 mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">Error Loading Flights</h3>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+          Error Loading Flights
+        </h3>
         <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
-        <Button 
-          onClick={loadUpcomingFlights} 
+        <Button
+          onClick={loadUpcomingFlights}
           className="bg-grassland-600 hover:bg-grassland-700 text-white"
         >
           Try Again
         </Button>
       </div>
-    )
+    );
   }
 
   return (
@@ -155,9 +171,12 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
       {sortedFlights.length === 0 ? (
         <div className="text-center py-12">
           <Plane className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">No upcoming flights found</h3>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+            No upcoming flights found
+          </h3>
           <p className="text-gray-600 dark:text-gray-400">
-            Try searching for specific flights or check back later for new options.
+            Try searching for specific flights or check back later for new
+            options.
           </p>
         </div>
       ) : (
@@ -173,19 +192,29 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
                         <Plane className="h-5 w-5 text-gray-600 dark:text-gray-400" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">{flight.airline}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{flight.flightNumber}</p>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">
+                          {flight.airline}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {flight.flightNumber}
+                        </p>
                       </div>
                     </div>
 
                     {/* Route */}
                     <div className="flex items-center gap-4 mb-4">
                       <div className="text-center">
-                        <p className="font-semibold text-gray-900 dark:text-white">{flight.departure.time}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{flight.departure.airport}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-500">{flight.departure.city}</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">
+                          {flight.departure.time}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {flight.departure.airport}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-500">
+                          {flight.departure.city}
+                        </p>
                       </div>
-                      
+
                       <div className="flex-1 flex items-center justify-center">
                         <div className="flex items-center gap-2 text-gray-400">
                           <div className="w-8 h-px bg-gray-300 dark:bg-gray-600"></div>
@@ -193,11 +222,17 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
                           <div className="w-8 h-px bg-gray-300 dark:bg-gray-600"></div>
                         </div>
                       </div>
-                      
+
                       <div className="text-center">
-                        <p className="font-semibold text-gray-900 dark:text-white">{flight.arrival.time}</p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{flight.arrival.airport}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-500">{flight.arrival.city}</p>
+                        <p className="font-semibold text-gray-900 dark:text-white">
+                          {flight.arrival.time}
+                        </p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {flight.arrival.airport}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-500">
+                          {flight.arrival.city}
+                        </p>
                       </div>
                     </div>
 
@@ -209,15 +244,17 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
                       </div>
                       <div className="flex items-center gap-1">
                         <MapPin className="h-4 w-4" />
-                        <span>{flight.stops} stop{flight.stops !== 1 ? 's' : ''}</span>
+                        <span>
+                          {flight.stops} stop{flight.stops !== 1 ? "s" : ""}
+                        </span>
                       </div>
-                      {flight.amenities.includes('wifi') && (
+                      {flight.amenities.includes("wifi") && (
                         <div className="flex items-center gap-1">
                           <Wifi className="h-4 w-4" />
                           <span>WiFi</span>
                         </div>
                       )}
-                      {flight.amenities.includes('meals') && (
+                      {flight.amenities.includes("meals") && (
                         <div className="flex items-center gap-1">
                           <Utensils className="h-4 w-4" />
                           <span>Meals</span>
@@ -232,9 +269,11 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
                       <p className="text-2xl font-bold text-gray-900 dark:text-white">
                         {flight.currency} {flight.price}
                       </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">per passenger</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        per passenger
+                      </p>
                     </div>
-                    
+
                     <div className="flex gap-2">
                       <Badge variant="secondary" className="text-xs">
                         {flight.class}
@@ -250,6 +289,15 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
                     >
                       Book Flight
                     </Button>
+                    <button
+                      onClick={() => {
+                        router.push(`/flights/${flight.id}`);
+                      }}
+                      className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 hover:shadow-md"
+                      title="View Offer"
+                    >
+                      View Offer
+                    </button>
                   </div>
                 </div>
               </CardContent>
@@ -258,5 +306,5 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
         </div>
       )}
     </div>
-  )
-} 
+  );
+}
