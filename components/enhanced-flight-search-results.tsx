@@ -146,11 +146,11 @@ export function EnhancedFlightSearchResults({ filters = {}, searchParams }: Enha
 
   const handleBookFlight = (flight: Flight) => {
     toast.success(`Flight ${flight.flightNumber} selected! Redirecting to booking...`)
-    router.push(`book/${flight.id}`);
+    router.push(`/book/${flight.id}`);
   }
   const handleViewFlight = (flight: Flight) => {
     toast.success(`Flight ${flight.flightNumber} selected! Redirecting to View it...`)
-    router.push(`flights/${flight.id}`);
+    router.push(`/flights/${flight.id}`);
   }
 
   if (!searchParams?.from || !searchParams?.to) {
@@ -307,7 +307,7 @@ export function EnhancedFlightSearchResults({ filters = {}, searchParams }: Enha
                     className="w-full lg:w-auto bg-purple-600 hover:bg-purple-700 text-white"
                     onClick={() => handleBookFlight(flight)}
                   >
-                    Select Flight
+                    Book Flight
                   </Button>
                   <Button
                     className="w-full lg:w-auto bg-purple-600 hover:bg-purple-700 text-white"
