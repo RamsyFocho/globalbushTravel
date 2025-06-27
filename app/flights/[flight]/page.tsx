@@ -100,7 +100,7 @@ const FlightOfferDetails = ({ params }: { params: Promise<{ flight: string }> })
   }, [offerId, flightParam]);
 
   // Defensive: fallback for Duffel/Mock structure
-  if (!flightParam || !offer) return null;
+  if (!offer) return null;
   const slice = offer.slices ? offer.slices[0] : null;
   const owner = offer.owner || offer.airline || {};
   const conditions = offer.conditions || {};
