@@ -117,6 +117,13 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
     // use the flight.id for redirecting to the booking page
     router.push(`/book/${flight.id}`);
   };
+  const handleViewFlight = (flight: Flight) => {
+    toast.success(
+      `Flight ${flight.flightNumber} selected! Redirecting to booking...`
+    );
+    // use the flight.id for redirecting to the booking page
+    router.push(`/flights/${flight.id}`);
+  };
 
   const handleFilterClear = (filterKey: string) => {
     console.log("Clear filter:", filterKey);
@@ -292,9 +299,7 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
                       Book Flight
                     </Button>
                     <button
-                      onClick={() => {
-                        router.push(`/flights/${flight.id}`);
-                      }}
+                      onClick={() => handleViewFlight(flight)}
                       className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 hover:shadow-md"
                       title="View Offer"
                     >
