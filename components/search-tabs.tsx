@@ -8,7 +8,7 @@ import { Plane, Building, Package, Car } from "lucide-react"
 
 export function SearchTabs() {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 border border-purple-100">
+    <div className="hidden md:block bg-white rounded-lg shadow-lg p-6 border border-purple-100">
       <Tabs defaultValue="flights" className="w-full">
         <TabsList className="grid w-full grid-cols-4 mb-6 dark:bg-purple-200 bg-purple-50">
           <TabsTrigger
