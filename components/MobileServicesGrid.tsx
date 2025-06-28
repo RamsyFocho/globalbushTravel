@@ -62,7 +62,7 @@ const MobileServicesGrid = () => {
   ];
 
   return (
-    <section className="block md:hidden px-1 py-6 bg-gray-50 w-full rounded-lg shadow-md border border-red-200">
+    <section className="block md:hidden px-1 py-6 bg-transparent w-full rounded-lg shadow-md ">
       <div className="grid grid-cols-3 gap-2">
         {services.map((service) => {
           const IconComponent = service.icon;
