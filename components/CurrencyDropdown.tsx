@@ -15,7 +15,7 @@ export default function CurrencyDropdown() {
 
   return (
     <div className="flex items-center gap-2">
-      <label className="text-sm">Currency:</label>
+      <label className="hidden md:block text-sm">Currency:</label>
       <select
         value={currency}
         onChange={(e) => setCurrency(e.target.value)}

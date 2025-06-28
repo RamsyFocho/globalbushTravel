@@ -31,15 +31,15 @@ const MobileServicesGrid = () => {
       id: 'rides',
       title: 'Rides',
       icon: Car,
-      href: '/rides',
+      href: '/transfers',
       bgColor: 'bg-yellow-50',
       iconColor: 'text-yellow-600'
     },
     {
       id: 'property',
-      title: 'List Your Property',
+      title: 'Packages',
       icon: Home,
-      href: '/list-property',
+      href: '/packages',
       bgColor: 'bg-purple-50',
       iconColor: 'text-purple-600'
     },

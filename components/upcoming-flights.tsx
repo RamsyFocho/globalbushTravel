@@ -114,6 +114,8 @@ export function UpcomingFlights({ userLocation }: UpcomingFlightsProps) {
     toast.success(
       `Flight ${flight.flightNumber} selected! Redirecting to booking...`
     );
+    // use the flight.id for redirecting to the booking page
+    router.push(`/book/${flight.id}`);
   };
 
   const handleFilterClear = (filterKey: string) => {
